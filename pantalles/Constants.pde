@@ -13,4 +13,3 @@ int filterButtonX = 70;
 int filterButtonY = 70;
 int experienceX = 300;
 int experienceY = 400;
-int margeX = (1920-4*experienceX)/5;
