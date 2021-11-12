@@ -13,3 +13,10 @@ int filterButtonX = 70;
 int filterButtonY = 70;
 int experienceX = 300;
 int experienceY = 400;
+int redondeig = 30;
+int y = 0;
+
+int filtersX;
+int filtersY;
+int prevX;
+int prevY;

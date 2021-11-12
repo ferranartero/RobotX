@@ -1,74 +1,67 @@
+enum Pantalles {ANIMATION, INICI, FILTERS, ABOUT, PREV, CREATE, EXPERIENCE, FOTOS, CODI, SIMULATOR};
+Pantalles pantalla;
 int c;
 int margeX;
+int yMax;
 
 void setup(){
   fullScreen();
   strokeWeight(0);
   println(width);
   println(margeX);
-  margeX = (width-4*experienceX)/5;
+  inicialitza();
+  
+  
+  pantalla = Pantalles.ANIMATION;
 }
 
 void draw(){
   background(243, 246, 247);
-  
-  if(c == 0){  //animació
-    rectMode(CENTER);
-    fill(147, 207, 226);
-    rect(width/2, height/2-titolY/2-separacio/2, logoX1, logoY1); //logo
-    rect(width/2, height/2+logoY1/2+separacio/2, titolX, titolY); //titol
-    textAlign(CENTER);textSize(20);fill(39, 38, 53);
-    text("logo", width/2, height/2-titolY/2-separacio/2);
-    text("titol", width/2, height/2+logoY1/2+separacio/2);
+  if(c == 0){//animation
+    animation();
+    pantalla = Pantalles.INICI;
   }
   
-  if(c == 1){  //inici
-    rectMode(CENTER);
-    fill(147, 207, 226);
-    rect(width/2, margeY+logoY2/2, logoX2, logoY2); //logo
-    rect(width/2, margeY+logoY2+50+createButtonY/2, createButtonX, createButtonY); //create button
-    rect(margeX+ filterButtonX/2, margeY+logoY2+50+createButtonY+50+filterButtonY/2, filterButtonX, filterButtonY); //filter button
-    
-    rect(margeX+experienceX/2, margeY+logoY2+50+createButtonY+50+filterButtonY+30+experienceY/2, experienceX, experienceY);
-    rect(2*margeX+3*experienceX/2, margeY+logoY2+50+createButtonY+50+filterButtonY+30+experienceY/2, experienceX, experienceY);
-    rect(3*margeX+5*experienceX/2, margeY+logoY2+50+createButtonY+50+filterButtonY+30+experienceY/2, experienceX, experienceY);
-    rect(4*margeX+7*experienceX/2, margeY+logoY2+50+createButtonY+50+filterButtonY+30+experienceY/2, experienceX, experienceY);
-    
-    rect(margeX+experienceX/2, margeY+logoY2+50+createButtonY+50+filterButtonY+30+3*experienceY/2+100, experienceX, experienceY);
-    rect(2*margeX+3*experienceX/2, margeY+logoY2+50+createButtonY+50+filterButtonY+30+3*experienceY/2+100, experienceX, experienceY);
-    rect(3*margeX+5*experienceX/2, margeY+logoY2+50+createButtonY+50+filterButtonY+30+3*experienceY/2+100, experienceX, experienceY);
-    rect(4*margeX+7*experienceX/2, margeY+logoY2+50+createButtonY+50+filterButtonY+30+3*experienceY/2+100, experienceX, experienceY);
-    
-    textAlign(CENTER);textSize(15);fill(39, 38, 53);
-    text("logo",width/2, margeY+logoY2/2);
-    text("CREATE", width/2, margeY+logoY2+50+createButtonY/2);
-    text("filter", margeX+ filterButtonX/2, margeY+logoY2+50+createButtonY+50+filterButtonY/2);
-    
-    text("experience", margeX+experienceX/2, margeY+logoY2+50+createButtonY+50+filterButtonY+30+experienceY/2);
-    text("experience", 2*margeX+3*experienceX/2, margeY+logoY2+50+createButtonY+50+filterButtonY+30+experienceY/2);
-    text("experience", 3*margeX+5*experienceX/2, margeY+logoY2+50+createButtonY+50+filterButtonY+30+experienceY/2);
-    text("experience", 4*margeX+7*experienceX/2, margeY+logoY2+50+createButtonY+50+filterButtonY+30+experienceY/2);
-    
-    text("experience", margeX+experienceX/2, margeY+logoY2+50+createButtonY+50+filterButtonY+30+3*experienceY/2+100);
-    text("experience", 2*margeX+3*experienceX/2, margeY+logoY2+50+createButtonY+50+filterButtonY+30+3*experienceY/2+100);
-    text("experience", 3*margeX+5*experienceX/2, margeY+logoY2+50+createButtonY+50+filterButtonY+30+3*experienceY/2+100);
-    text("experience", 4*margeX+7*experienceX/2, margeY+logoY2+50+createButtonY+50+filterButtonY+30+3*experienceY/2+100);
+  if(/*pantalla == Pantalles.ANIMATION*/c == 1){  //inici
+    displayLogo();
+    displayInici();
+  }
+  
+  if(/*pantalla == Pantalles.INICI*/c == 2){  //pop up filtros
+    displayLogo();
+    displayInici();
+    displayFilters();
+  }
+  
+  if(/*pantalla == Pantalles.ABOUT*/c == 3){  //about
+    displayLogo();
+    displayInici();
+    displayAbout();
+  }
+  
+  if(/*pantalla == Pantalles.PREV */ c == 4){  //pop up previsualització
+    displayLogo();
+    displayInici();
+    displayPrev();
+  }
+  
+  if(pantalla == Pantalles.CREATE){  //create
     
   }
   
-  if(c == 2){  //pop up filtros
+  if(pantalla == Pantalles.EXPERIENCE){  //experience
     
   }
   
-  if(c == 3){  //pop up previsualització
+  if(pantalla == Pantalles.FOTOS){  //fotos
     
   }
   
-  if(c == 4){  //editor i experiència
+  if(pantalla == Pantalles.CODI){  //codi
     
   }
   
-  if(c == 5){  //simulació
+  if(pantalla == Pantalles.SIMULATOR){  //simulator
     
   }
 }
@@ -77,7 +70,7 @@ void keyPressed(){
   if(keyCode == RIGHT){
     c++;
     if(c>5){
-      c=0;
+      c=5;
     }
   }
   
@@ -87,5 +80,32 @@ void keyPressed(){
       c=0;
     }
   }
+  
+  if(c == 1){
+    if (keyCode == UP){
+      y += 10;
+      if(y>0){
+        y = 0;
+      }
+    }
+    
+    if (keyCode == DOWN){
+      y -= 10;
+      if(y<-yMax){
+        y = -yMax;
+      }
+    }
+  }
+  
+  
   println(c);
+}
+
+void inicialitza(){
+  margeX = (width-4*experienceX)/5;
+  yMax = (margeY+logoY2+50+createButtonY+50+filterButtonY+30+2*experienceY+200)-height;
+  filtersX = width*4/7;
+  filtersY = height*4/7;  
+  prevX = width*2/3;
+  prevY = height*7/9;
 }
