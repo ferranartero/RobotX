@@ -1,8 +1,6 @@
 enum Pantalles {ANIMATION, INICI, FILTERS, ABOUT, PREV, CREATE, EXPERIENCE, FOTOS, CODI, SIMULATOR};
 Pantalles pantalla;
-int c;
-int margeX;
-int yMax;
+
 
 void setup(){
   fullScreen();
@@ -46,11 +44,13 @@ void draw(){
   }
   
   if(pantalla == Pantalles.CREATE){  //create
-    
+    displayLogo();
+
   }
   
   if(pantalla == Pantalles.EXPERIENCE){  //experience
-    
+     displayLogo();
+
   }
   
   if(pantalla == Pantalles.FOTOS){  //fotos

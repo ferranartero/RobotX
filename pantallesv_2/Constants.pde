@@ -10,6 +10,7 @@ int logoX2 = 85;
 int logoY2 = 85;
 int margeX;
 int margeY = 30;
+int margeY2 = 100;
 int createButtonX = 320;
 int createButtonY = 80;
 int filterButtonX = 70;
@@ -24,3 +25,14 @@ int filtersX;
 int filtersY;
 int prevX;
 int prevY;
+
+int fotoPrevX;
+int fotoPrevY;
+
+int procedureX;
+int procedureY;
+int materialsX;
+int bSimulationY = 80;
+
+int screenX;
+int screenY;

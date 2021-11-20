@@ -84,3 +84,7 @@ void displayPrev(){
     text("previsualització", width/2, height/2);
   popStyle();
 }
+
+void displayExperience(){
+  
+}
