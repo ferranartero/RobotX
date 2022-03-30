@@ -35,6 +35,8 @@ int bSimulationY = 80;
 int screenX;
 int screenY;
 
+boolean cursorHand = false;
+ExperienceButton expSelected;
 
 void inicialitzaConstants(){
   margeX = (width-4*experienceX)/5;
@@ -42,7 +44,7 @@ void inicialitzaConstants(){
   filtersX = width*4/7;
   filtersY = height*4/7;  
   prevX = width*2/3;
-  prevY = height*7/9;
+  prevY = height*7/16;
   fotoPrevX = width*3/10;
   fotoPrevY = height-margeY2-margeY-logoY2-50;
   procedureX = 3*(width-2*margeX-fotoPrevX-75)/5;

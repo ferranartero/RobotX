@@ -18,8 +18,8 @@ void logo(){
 }
 
 void displayInici(){
-  experiences();
   logo();
+  experiences();
 }
 
 void experiences(){
@@ -29,15 +29,12 @@ void experiences(){
     filters.display(); 
     about.display(); 
     
-    //expiriences
-    experience1.display();
-    experience2.display();
-    experience3.display();
-    experience4.display();
-    experience5.display();
-    experience6.display();
-    experience7.display();
-    experience8.display();
+    //visualitza experiences
+    for(int i = 0; i<experiences.size(); i++){
+      int fila = i/4; int columna = i%4;
+      ExperienceButton e = experiences.get(i);
+      e.display((columna+1)*margeX+columna*experienceX, margeY+logoY2+50+createButtonY+50+filterButtonX+30+experienceY*fila+100*fila, experienceX, experienceY, y);
+    }
     
   popStyle();
 }
@@ -81,7 +78,24 @@ void displayPrev(){
 }
 
 void prev(){
-  
+  pushStyle();
+     rectMode(LEFT);fill(20, 125);rect(0,0,width,height);
+     rectMode(CENTER);fill(243, 246, 247);
+     rect(width/2, height/2, prevX, prevY, 25);
+     imageMode(CENTER);
+     image(expSelected.img, width/2-prevX/2+prevX/6+50, height/2, prevX/3, prevX/3);                 //imatge
+     fill(44, 55, 97); textAlign(CORNER); textFont(titols); textSize(50);
+     text(expSelected.title,  width/2-prevX/2+prevX/3+100, height/2-prevX/6+100);                    //titol
+     textFont(text); textSize(15);textAlign(CORNER);
+     text(expSelected.description, width/2-prevX/2+prevX/3+450, height/2-prevX/6+240, 700, 200);     //descripció
+     fill(expSelected.difficulty); textSize(15);                                                     //dificultat
+     switch(expSelected.dif){
+       case 0: text("EASY", width/2-prevX/2+prevX/3+100, height/2-prevX/6+118); break;
+       case 1: text("MEDIUM", width/2-prevX/2+prevX/3+100, height/2-prevX/6+118); break;
+       case 2: text("DIFFICULT", width/2-prevX/2+prevX/3+100, height/2-prevX/6+118); break;
+     }
+     goToExperience.display();
+  popStyle();
 }
 
 void displayCreate(){
@@ -244,17 +258,21 @@ void mouseCursor(){
      pantalla == Pantalles.FILTERS && back.mouseOverButton() ||
      pantalla == Pantalles.ABOUT && back.mouseOverButton() ||
      pantalla == Pantalles.PREV && backPrev.mouseOverButton() ||
-     pantalla == Pantalles.INICI && experience1.mouseOverButton() ||
-     pantalla == Pantalles.INICI && experience2.mouseOverButton() ||
-     pantalla == Pantalles.INICI && experience3.mouseOverButton() ||
-     pantalla == Pantalles.INICI && experience4.mouseOverButton() ||
-     pantalla == Pantalles.INICI && experience5.mouseOverButton() ||
-     pantalla == Pantalles.INICI && experience6.mouseOverButton() ||
-     pantalla == Pantalles.INICI && experience7.mouseOverButton() ||
-     pantalla == Pantalles.INICI && experience8.mouseOverButton()
+     pantalla == Pantalles.PREV && goToExperience.mouseOverButton()
      ){
-    cursor(HAND);
-  } else{
-    cursor(ARROW);
+        cursorHand = true;
+     }else{
+        cursorHand = false;
   }
+  
+  if(pantalla == Pantalles.INICI){
+    for(int i = 0; i<experiences.size(); i++){
+      ExperienceButton e = experiences.get(i);
+      if(e.mouseOverButton()){
+        cursorHand = true;
+        break;
+      }
+    }
+  }
+  
 }

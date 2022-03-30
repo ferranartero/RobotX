@@ -15,6 +15,7 @@ int filterButtonX = 50;
 int backButtonX = 40;
 int experienceX = 300;
 int experienceY = 400;
+int codePanelY = 900;
 int redondeig = 30;
 int y = 0;
 int yMax;
@@ -35,6 +36,11 @@ int bSimulationY = 80;
 int screenX;
 int screenY;
 
+boolean cursorHand = false;
+ExperienceButton expSelected;
+
+boolean addCodePanel = false;
+String[] diff = {"EASY", "MEDIUM", "DIFFICULT"};
 
 void inicialitzaConstants(){
   margeX = (width-4*experienceX)/5;
@@ -42,11 +48,11 @@ void inicialitzaConstants(){
   filtersX = width*4/7;
   filtersY = height*4/7;  
   prevX = width*2/3;
-  prevY = height*7/9;
+  prevY = height*7/16;
   fotoPrevX = width*3/10;
   fotoPrevY = height-margeY2-margeY-logoY2-50;
   procedureX = 3*(width-2*margeX-fotoPrevX-75)/5;
-  procedureY = height-logoY2-margeY- margeY2-bSimulationY-325;
+  procedureY = height-logoY2-margeY- margeY2-bSimulationY-320;
   materialsX = 2*(width-2*margeX-fotoPrevX-75)/5;
   screenX = width/2-margeX+logoY2/2;
   screenY = height-margeY-logoY2-100-margeY2;

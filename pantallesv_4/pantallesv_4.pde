@@ -1,7 +1,6 @@
 enum Pantalles {ANIMATION, INICI, FILTERS, ABOUT, PREV, CREATE, EXPERIENCE, FOTOS, CODI, SIMULATOR};
 Pantalles pantalla;
 
-
 void setup(){
   fullScreen();
   strokeWeight(0);
@@ -24,24 +23,15 @@ void draw(){
     case SIMULATOR: displaySimulator(); break;
   }
   
-  if(pantalla == Pantalles.INICI){
-    filters.setEnabled(true);
-    about.setEnabled(true);
-    create.setEnabled(true);
-    experience1.setEnabled(true); experience2.setEnabled(true); experience3.setEnabled(true); experience4.setEnabled(true);
-    experience5.setEnabled(true); experience6.setEnabled(true); experience7.setEnabled(true); experience8.setEnabled(true);
-  } else {
-    filters.setEnabled(false);
-    about.setEnabled(false);
-    create.setEnabled(false);
-    experience1.setEnabled(false); experience2.setEnabled(false); experience3.setEnabled(false); experience4.setEnabled(false);
-    experience5.setEnabled(false); experience6.setEnabled(false); experience7.setEnabled(false); experience8.setEnabled(false);
-  }
+  enableButtons();
   
   mouseCursor();
+  if(cursorHand){
+    cursor(HAND);
+     }else{
+    cursor(ARROW);
+     }
 }
-
-
 
 void mouseReleased(){
   
@@ -51,21 +41,44 @@ void mouseReleased(){
      logo2.mouseOverButton() && pantalla == Pantalles.SIMULATOR){ pantalla = Pantalles.INICI; }
   else if(filters.mouseOverButton() && pantalla == Pantalles.INICI){ pantalla = Pantalles.FILTERS; }
   else if(about.mouseOverButton() && pantalla == Pantalles.INICI){ pantalla = Pantalles.ABOUT; }
-  else if(create.mouseOverButton() && pantalla == Pantalles.INICI){ pantalla = Pantalles.CREATE; } 
+  else if(create.mouseOverButton() && pantalla == Pantalles.INICI){ 
+    y = 0; 
+    create.setY(margeY+logoY2+50+createButtonY/2); 
+    filters.setY(margeY+logoY2+50+createButtonY+50+filterButtonX/2); 
+    about.setY(margeY+logoY2+50+createButtonY+50+filterButtonX/2);
+    pantalla = Pantalles.CREATE; } 
   else if(back.mouseOverButton() && pantalla == Pantalles.FILTERS){ pantalla = Pantalles.INICI; }
   else if(back.mouseOverButton() && pantalla == Pantalles.ABOUT){ pantalla = Pantalles.INICI; }
   else if(backPrev.mouseOverButton() && pantalla == Pantalles.PREV){ pantalla = Pantalles.INICI; }
-  else if(experience1.mouseOverButton() && pantalla == Pantalles.INICI){ pantalla = Pantalles.PREV;  experience1.setPrev(true); }
-  else if(experience2.mouseOverButton() && pantalla == Pantalles.INICI){ pantalla = Pantalles.PREV;  experience2.setPrev(true); }
-  else if(experience3.mouseOverButton() && pantalla == Pantalles.INICI){ pantalla = Pantalles.PREV;  experience3.setPrev(true); }
-  else if(experience4.mouseOverButton() && pantalla == Pantalles.INICI){ pantalla = Pantalles.PREV;  experience4.setPrev(true); }
-  else if(experience5.mouseOverButton() && pantalla == Pantalles.INICI){ pantalla = Pantalles.PREV;  experience5.setPrev(true); }
-  else if(experience6.mouseOverButton() && pantalla == Pantalles.INICI){ pantalla = Pantalles.PREV;  experience6.setPrev(true); }
-  else if(experience7.mouseOverButton() && pantalla == Pantalles.INICI){ pantalla = Pantalles.PREV;  experience7.setPrev(true); }
-  else if(experience8.mouseOverButton() && pantalla == Pantalles.INICI){ pantalla = Pantalles.PREV;  experience8.setPrev(true); }
+  else if(pantalla == Pantalles.INICI){
+    for(int i = 0; i<experiences.size(); i++){
+      ExperienceButton e = experiences.get(i);
+      if(e.mouseOverButton()){
+        expSelected = e;
+        pantalla = Pantalles.PREV;
+        break;
+      }
+    }
+  }
   else if(!mouseOverFilters() && pantalla == Pantalles.FILTERS){ pantalla = Pantalles.INICI; }
   else if(!mouseOverAbout() && pantalla == Pantalles.ABOUT){ pantalla = Pantalles.INICI; }
   else if(!mouseOverPrev() && pantalla == Pantalles.PREV){ pantalla = Pantalles.INICI; }
+  else if(!mouseOverCodi() && pantalla == Pantalles.CODI){ pantalla = Pantalles.EXPERIENCE; }
+  else if(goToExperience.mouseOverButton() && pantalla == Pantalles.PREV){  
+    y = 0; 
+    create.setY(margeY+logoY2+50+createButtonY/2); 
+    filters.setY(margeY+logoY2+50+createButtonY+50+filterButtonX/2); 
+    about.setY(margeY+logoY2+50+createButtonY+50+filterButtonX/2);
+    pantalla = Pantalles.EXPERIENCE; 
+  }
+  else if(goToSimulation.mouseOverButton() && pantalla == Pantalles.EXPERIENCE){ pantalla = Pantalles.SIMULATOR; }
+  else if(viewArduinoCode.mouseOverButton() && pantalla == Pantalles.EXPERIENCE){ pantalla = Pantalles.CODI; }
+  else if(home.mouseOverButton() && pantalla == Pantalles.EXPERIENCE){ pantalla = Pantalles.INICI; }
+  else if(home.mouseOverButton() && pantalla == Pantalles.CREATE){ pantalla = Pantalles.INICI; }
+  else if(backSimulator.mouseOverButton() && pantalla == Pantalles.SIMULATOR){ pantalla = Pantalles.EXPERIENCE; }
+  else if(backCode.mouseOverButton() && pantalla == Pantalles.CODI) { pantalla = Pantalles.EXPERIENCE; }
+  else if(mouseOverFoto() && pantalla == Pantalles.EXPERIENCE){ pantalla = Pantalles.FOTOS; }
+  else if(backFotos.mouseOverButton() && pantalla == Pantalles.FOTOS){ pantalla = Pantalles.EXPERIENCE; }
   
 }
 
@@ -76,14 +89,6 @@ void keyPressed(){
         create.changeYby(10);
         filters.changeYby(10);
         about.changeYby(10);
-        experience1.changeYby(10);
-        experience2.changeYby(10);
-        experience3.changeYby(10);
-        experience4.changeYby(10);
-        experience5.changeYby(10);
-        experience6.changeYby(10);
-        experience7.changeYby(10);
-        experience8.changeYby(10);
       }
       y += 10;
       if(y>0){
@@ -96,14 +101,6 @@ void keyPressed(){
         create.changeYby(-10);
         filters.changeYby(-10);
         about.changeYby(-10);
-        experience1.changeYby(-10);
-        experience2.changeYby(-10);
-        experience3.changeYby(-10);
-        experience4.changeYby(-10);
-        experience5.changeYby(-10);
-        experience6.changeYby(-10);
-        experience7.changeYby(-10);
-        experience8.changeYby(-10);
       }
       y -= 10;
       if(y<-yMax){
@@ -138,4 +135,18 @@ boolean mouseOverPrev(){
           mouseX <= width/2+prevX/2 &&
           mouseY >= height/2-prevY/2 &&
           mouseY <= height/2+prevY/2);
+}
+
+boolean mouseOverCodi(){
+  return (mouseX >= width/2-prevX/2 &&
+          mouseX <= width/2+prevX/2 &&
+          mouseY >= height/2-codePanelY/2 &&
+          mouseY <= height/2+codePanelY/2);
+}
+
+boolean mouseOverFoto(){
+  return (mouseX >= margeX &&
+          mouseX <= margeX+fotoPrevX &&
+          mouseY >= height/2-fotoPrevX/2 &&
+          mouseY <= height/2+fotoPrevX/2);
 }

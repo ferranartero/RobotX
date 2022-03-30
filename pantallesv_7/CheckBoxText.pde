@@ -1,0 +1,96 @@
+// Component Checkbox
+
+class CheckBoxText {
+  
+  // Propietats
+  float x, y, w, h;
+  String texte;
+  PImage img;
+  
+  // Colors
+  color bgColor;
+  color borderColor;
+  color checkedColor;
+  
+  boolean checked;
+  
+  // Constructor
+  CheckBoxText(int x, int y, int w, int h){
+    this.x = x; this.y = y;
+    this.h = h; this.w = w;
+    this.checked = false;
+    this.bgColor = color(223, 226, 227);
+    this.borderColor = color(30);
+    this.checkedColor = color(20);
+    this.texte = "";
+  }
+  
+  CheckBoxText(String t, float x, float y, float w, float h){
+    this.texte = t;
+    this.x = x;this.y = y;
+    this.w = w; this.h = h;
+    this.checked = false;
+    this.bgColor = color(255);
+    this.borderColor = color(0);
+    this.checkedColor = color(180);
+  }
+  
+  void setImage(String imgName){
+    this.img = loadImage(imgName);
+  }
+  
+  // Dibuixa el CheckBox
+  void display(){
+    if(onMouseOver()){
+      stroke(50, 120, 172);
+      strokeWeight(1.5);
+    }else{
+      stroke(borderColor);
+      strokeWeight(1.5);
+    }
+    
+    if(this.checked){
+      fill(checkedColor);
+    }
+    else{
+      fill(bgColor);
+    }
+    rect(x, y, w, h);
+    fill(44, 55, 67); textAlign(LEFT); textSize(20);textFont(text);
+    text(this.texte, x + w + 15, y + h/2 + 5);
+    
+    if(img!=null){
+      image(img, x - w, y, w, h);
+    }
+    
+    if(this.checked){
+      if(onMouseOver()){
+        stroke(50, 120, 172);
+      }else{
+        stroke(5);
+      }
+      line(x+5, y+5, x + w-5, y + w-5);
+      line(x+5, y+w-5, x + w-5, y+5);
+      stroke(1.5);
+    }
+  }
+  
+  void setChecked(boolean b){
+    this.checked = b;
+  }
+  
+  // Canvia l'estat de selecció
+  void toggle(){
+    this.checked = ! this.checked;
+  }
+  
+  
+  // Mira si el ratolí està sobre el checkbox
+  boolean onMouseOver(){
+    return  mouseX>= this.x && 
+            mouseX<= this.x + this.w &&
+            mouseY>= this.y &&
+            mouseY<= this.y + this.h;
+  }
+  
+}
