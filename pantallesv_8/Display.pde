@@ -12,16 +12,18 @@ void displayAnimation(){
       rectMode(CENTER); fill(147, 207, 226); shapeMode(CENTER);
       translate(width/2, height/2-titolY/2-separacio/2);
       if(rotation <= PI/3){
-        rotation +=0.02;
+        rotation +=0.0085;
         rotate(log(rotation));
-        shape(logo, 0, 0, logoX1-rotation*50, logoY1-rotation*50); //logo
-      }else if(grow<PI/2 && rotation >= PI/3-0.015) {
+        
+      }
+      shape(logo, 0, 0, logoX1-rotation*50, logoY1-rotation*50); //logo
+      /*else if(grow<PI/2 && rotation >= PI/3-0.015) {
         grow +=0.014;
         rotate(-grow);
         shape(logo, 0, 0, logoX1-rotation*50+grow*35, logoY1-rotation*50+grow*35); //logo
       }else{
         shape(logo, 0, 0, logoX1, logoY1); //logo
-      }
+      }*/
     popMatrix();
     
     if(millis()>5000){
