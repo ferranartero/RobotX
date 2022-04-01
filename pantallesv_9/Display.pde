@@ -266,7 +266,16 @@ void displayExperience(){
   text("PROCEDURE", margeX+fotoPrevX + 52 + procedureX/2, height/2-fotoPrevX/2 + 160);
   text("MATERIALS", width-margeX-materialsX/2, height/2-fotoPrevX/2 + 160);
   home.display();
-  goToSimulation.display();
+  if(expSelected.simulacio == 0){
+    goToSimulation.setEnabled(false);
+    viewArduinoCode.setX(width/2+365);
+    viewArduinoCode.setW(procedureX);
+  } else{
+    goToSimulation.setEnabled(true);
+    goToSimulation.display();
+    viewArduinoCode.setX(width-margeX-materialsX/2);
+    viewArduinoCode.setW(materialsX);
+  }
   viewArduinoCode.display();
   popStyle();
 }

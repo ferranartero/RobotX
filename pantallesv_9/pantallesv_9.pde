@@ -10,6 +10,7 @@ void setup(){
 
 void draw(){
   background(243, 246, 247);
+  smooth(); frameRate(30);
   switch(pantalla){
     case ANIMATION: if(millis() < 6000){displayAnimation();}else{ pantalla = Pantalles.INICI; } break;
     case INICI: displayInici(); break;
@@ -22,10 +23,10 @@ void draw(){
     case CODI: displayCode(); break;
     case SIMULATOR: displaySimulator(); break;
     case SIMULA01: s1.display(); break;
-    case SIMULA02: s2.display(); break;
-    case SIMULA03: s3.display(); break;
-    case SIMULA04: s4.display(); break;
-    case SIMULA05: s5.display(); break;
+    case SIMULA02: s2.display(); s2.updateServo(); break;
+    case SIMULA03: s3.display(); /*s3.updateSerial();*/ break;
+    case SIMULA04: s4.display(); /*s4.updateSerial();*/ break;
+    case SIMULA05: s5.display(); /*s5.updateSerial();*/ break;
   }
   
   enableButtons();
@@ -105,10 +106,18 @@ void mouseReleased(){
   createMaterials.checkMouse();
   s1.checkButtons();
   s1.checkSliders();
+  s2.checkSlider();
+  s3.checkSliders();
+  s4.checkSliders();
+  s5.checkSliders();
 }
 
 void mouseDragged(){
- s1.checkSliders(); 
+  s1.checkSliders(); 
+  s2.checkSlider();
+  s3.checkSliders();
+  s4.checkSliders();
+  s5.checkSliders();
 }
 
 void keyPressed(){  
