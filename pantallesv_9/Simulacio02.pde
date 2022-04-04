@@ -41,7 +41,8 @@ class Simulacio02 extends Simulacio {
   }
 
   void display() {
-    
+    logo();
+    backSimulator.display();
     // Informació
     fill(0); textSize(38); textAlign(LEFT);
     text("Braç Articulat", 150, 100);

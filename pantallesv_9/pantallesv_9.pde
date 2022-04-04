@@ -1,4 +1,4 @@
-enum Pantalles {ANIMATION, INICI, FILTERS, ABOUT, PREV, CREATE, EXPERIENCE, FOTOS, CODI, SIMULATOR, SIMULA01, SIMULA02, SIMULA03, SIMULA04, SIMULA05};
+enum Pantalles {ANIMATION, INICI, FILTERS, ABOUT, PREV, CREATE, EXPERIENCE, FOTOS, CODI, SIMULA01, SIMULA02, SIMULA03, SIMULA04, SIMULA05};
 Pantalles pantalla;
 
 void setup(){
@@ -12,7 +12,7 @@ void draw(){
   background(243, 246, 247);
   smooth(); frameRate(30);
   switch(pantalla){
-    case ANIMATION: if(millis() < 6000){displayAnimation();}else{ pantalla = Pantalles.INICI; } break;
+    case ANIMATION: if(millis() < 7000){displayAnimation();}else{ pantalla = Pantalles.INICI; } break;
     case INICI: displayInici(); break;
     case FILTERS: displayFilters(); break;
     case ABOUT: displayAbout(); break;
@@ -21,7 +21,6 @@ void draw(){
     case EXPERIENCE: displayExperience(); break;
     case FOTOS: displayFotos(); break;
     case CODI: displayCode(); break;
-    case SIMULATOR: displaySimulator(); break;
     case SIMULA01: s1.display(); break;
     case SIMULA02: s2.display(); s2.updateServo(); break;
     case SIMULA03: s3.display(); /*s3.updateSerial();*/ break;
@@ -43,7 +42,11 @@ void mouseReleased(){
   if((logo2.mouseOverButton() && pantalla == Pantalles.INICI  && logo2.enabled) ||
      (logo2.mouseOverButton() && pantalla == Pantalles.CREATE  && logo2.enabled) ||
      (logo2.mouseOverButton() && pantalla == Pantalles.EXPERIENCE  && logo2.enabled) ||
-     (logo2.mouseOverButton() && pantalla == Pantalles.SIMULATOR  && logo2.enabled)){ pantalla = Pantalles.INICI; }
+     (logo2.mouseOverButton() && pantalla == Pantalles.SIMULA01 && logo2.enabled) ||
+     (logo2.mouseOverButton() && pantalla == Pantalles.SIMULA02 && logo2.enabled) ||
+     (logo2.mouseOverButton() && pantalla == Pantalles.SIMULA03 && logo2.enabled) ||
+     (logo2.mouseOverButton() && pantalla == Pantalles.SIMULA04 && logo2.enabled) ||
+     (logo2.mouseOverButton() && pantalla == Pantalles.SIMULA05 && logo2.enabled)){ pantalla = Pantalles.INICI; }
   else if(filters.mouseOverButton() && pantalla == Pantalles.INICI){ pantalla = Pantalles.FILTERS; }
   else if(about.mouseOverButton() && pantalla == Pantalles.INICI){ pantalla = Pantalles.ABOUT; }
   else if(create.mouseOverButton() && pantalla == Pantalles.INICI){ 
@@ -76,11 +79,23 @@ void mouseReleased(){
     about.setY(margeY+logoY2+50+createButtonY+50+filterButtonX/2);
     pantalla = Pantalles.EXPERIENCE; 
   }
-  else if(goToSimulation.mouseOverButton() && pantalla == Pantalles.EXPERIENCE){ pantalla = Pantalles.SIMULATOR; }
+  else if(goToSimulation.mouseOverButton() && pantalla == Pantalles.EXPERIENCE){ 
+    switch(expSelected.simulacio){
+      case 1: pantalla = Pantalles.SIMULA01; break; 
+      case 2: pantalla = Pantalles.SIMULA02; break; 
+      case 3: pantalla = Pantalles.SIMULA03; break; 
+      case 4: pantalla = Pantalles.SIMULA04; break; 
+      case 5: pantalla = Pantalles.SIMULA05; break; 
+    }
+  }
   else if(viewArduinoCode.mouseOverButton() && pantalla == Pantalles.EXPERIENCE){ pantalla = Pantalles.CODI; }
   else if(home.mouseOverButton() && pantalla == Pantalles.EXPERIENCE && home.enabled){ pantalla = Pantalles.INICI; }
   else if(home.mouseOverButton() && pantalla == Pantalles.CREATE && home.enabled){ pantalla = Pantalles.INICI; }
-  else if(backSimulator.mouseOverButton() && pantalla == Pantalles.SIMULATOR){ pantalla = Pantalles.EXPERIENCE; }
+  else if((backSimulator.mouseOverButton() && pantalla == Pantalles.SIMULA01) ||
+          (backSimulator.mouseOverButton() && pantalla == Pantalles.SIMULA02) ||
+          (backSimulator.mouseOverButton() && pantalla == Pantalles.SIMULA03) ||
+          (backSimulator.mouseOverButton() && pantalla == Pantalles.SIMULA04) ||
+          (backSimulator.mouseOverButton() && pantalla == Pantalles.SIMULA05)){ pantalla = Pantalles.EXPERIENCE; }
   else if(backCode.mouseOverButton() && pantalla == Pantalles.CODI) { pantalla = Pantalles.EXPERIENCE; }
   else if(mouseOverFoto() && pantalla == Pantalles.EXPERIENCE){ pantalla = Pantalles.FOTOS; }
   else if(backFotos.mouseOverButton() && pantalla == Pantalles.FOTOS){ pantalla = Pantalles.EXPERIENCE; }

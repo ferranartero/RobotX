@@ -62,7 +62,8 @@ class Simulacio01 extends Simulacio {
   }
 
   void display() {
-    
+    logo();
+    backSimulator.display();
     // Dibuixa el text
     fill(0); textSize(44); textAlign(LEFT);
     text("LED RGB Controller", 20, 50);

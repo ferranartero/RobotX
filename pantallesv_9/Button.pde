@@ -45,7 +45,7 @@ class Button {
  void display(){
    rectMode(CENTER);
    if(!enabled){
-     fill(fillColor);  // Color desabilitat
+     fill(34, 184, 230, 180);  // Color desabilitat
      noStroke();     //Color i gruixa del contorn
      rect(this.x, this.y, this.w, this.h, 20);    // Rectangle del botó
      

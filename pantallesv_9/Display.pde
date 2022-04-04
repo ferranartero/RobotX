@@ -10,7 +10,7 @@ void displayAnimation(){
       
       rectMode(CENTER); fill(147, 207, 226); shapeMode(CENTER);
       translate(width/2, height/2-titolY/2-separacio/2);
-      if(rotation <= PI/3){
+      if(rotation <= PI/3-0.05){
         rotation +=0.0085;
         rotate(log(rotation));
       }
@@ -387,40 +387,6 @@ void code(){
   popStyle();
 }
 
-//SIMULATION
-void displaySimulator(){
-  logo();
-  simulationTitle();
-  screen();
-  controllers();
-  backSimulator.display();
-}
-
-void simulationTitle(){
-  pushStyle();
-    textAlign(CENTER); textFont(titols); textSize(35); fill(44, 55, 97);
-    text("SIMULATOR", width/2, margeY+logoY2+65);
-  popStyle();
-}
-
-void screen(){
-  pushStyle();
-    rectMode(CORNER); fill(147, 207, 226);
-    rect(margeX, margeY+logoY2+100, screenX, screenY);
-    textAlign(CENTER);textSize(15);fill(39, 38, 53);
-    text("screen", margeX+screenX/2, margeY+logoY2+100+screenY/2);
-  popStyle();
-}
-
-void controllers(){
-  pushStyle();
-    rectMode(CORNER); fill(147, 207, 226);
-    rect(margeX+screenX+25, margeY+logoY2+100, width-2*margeX-screenX-25, screenY);
-    textAlign(CENTER);textSize(15);fill(39, 38, 53);
-    text("controllers", margeX+screenX+25+(width-2*margeX-screenX-25)/2, margeY+logoY2+100+screenY/2);
-  popStyle();
-}
-
 //MOUSE CURSOR
 void mouseCursor(){
   if(pantalla == Pantalles.INICI && create.enabled && create.mouseOverButton() || 
@@ -429,7 +395,11 @@ void mouseCursor(){
      pantalla == Pantalles.INICI && logo2.mouseOverButton() || 
      pantalla == Pantalles.CREATE && logo2.mouseOverButton() && logo2.enabled ||
      pantalla == Pantalles.EXPERIENCE && logo2.mouseOverButton() ||
-     pantalla == Pantalles.SIMULATOR && logo2.mouseOverButton() ||
+     pantalla == Pantalles.SIMULA01 && logo2.mouseOverButton() ||
+     pantalla == Pantalles.SIMULA02 && logo2.mouseOverButton() ||
+     pantalla == Pantalles.SIMULA03 && logo2.mouseOverButton() ||
+     pantalla == Pantalles.SIMULA04 && logo2.mouseOverButton() ||
+     pantalla == Pantalles.SIMULA05 && logo2.mouseOverButton() ||
      pantalla == Pantalles.FILTERS && back.mouseOverButton() ||
      pantalla == Pantalles.ABOUT && back.mouseOverButton() ||
      pantalla == Pantalles.PREV && backPrev.mouseOverButton() ||
@@ -438,7 +408,11 @@ void mouseCursor(){
      pantalla == Pantalles.EXPERIENCE && viewArduinoCode.mouseOverButton() ||
      pantalla == Pantalles.EXPERIENCE && home.mouseOverButton() ||
      pantalla == Pantalles.CREATE && home.mouseOverButton() && home.enabled ||
-     pantalla == Pantalles.SIMULATOR && backSimulator.mouseOverButton() ||
+     pantalla == Pantalles.SIMULA01 && backSimulator.mouseOverButton() ||
+     pantalla == Pantalles.SIMULA02 && backSimulator.mouseOverButton() ||
+     pantalla == Pantalles.SIMULA03 && backSimulator.mouseOverButton() ||
+     pantalla == Pantalles.SIMULA04 && backSimulator.mouseOverButton() ||
+     pantalla == Pantalles.SIMULA05 && backSimulator.mouseOverButton() ||
      pantalla == Pantalles.CODI && backCode.mouseOverButton() ||
      pantalla == Pantalles.EXPERIENCE && mouseOverFoto() ||
      pantalla == Pantalles.FOTOS && backFotos.mouseOverButton() ||

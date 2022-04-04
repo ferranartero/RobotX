@@ -59,6 +59,8 @@ class Simulacio04 extends Simulacio {
 
   // Dibuixa la gui
   void display() {
+    logo();
+    backSimulator.display();
     pushMatrix();    
     translate(width/2, 550); 
     //scale(2);

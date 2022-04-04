@@ -61,7 +61,8 @@ class Simulacio03 extends Simulacio {
 
   // Dibuixa la gui
   void display() {
-    
+    logo();
+    backSimulator.display();
     // Dibuixa els sliders
     sX.display();
     sY.display();
