@@ -4,6 +4,7 @@ Pantalles pantalla;
 void setup(){
   fullScreen();
   strokeWeight(0);
+  connectDB();
   inicialitza();   
   pantalla = Pantalles.ANIMATION;
 }

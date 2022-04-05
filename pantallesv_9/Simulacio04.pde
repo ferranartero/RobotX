@@ -39,11 +39,11 @@ class Simulacio04 extends Simulacio {
   void initGui() {
 
     // Formes 3D
-    L1 = loadShape("linkone.obj");
-    L2= loadShape("linktwo.obj");
-    L3= loadShape("linkthree.obj");
-    L4= loadShape("linkfour.obj");
-    base =loadShape("base.obj");
+    L1 = loadShape("simula04/linkone.obj");
+    L2= loadShape("simula04/linktwo.obj");
+    L3= loadShape("simula04/linkthree.obj");
+    L4= loadShape("simula04/linkfour.obj");
+    base =loadShape("simula04/base.obj");
 
     // Sliders
     sX = new Slider("X_Rotation", 50, 50, 300, 50, 0, 6.28, 0);

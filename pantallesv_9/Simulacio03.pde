@@ -40,10 +40,10 @@ class Simulacio03 extends Simulacio {
   void initGui() {
     
     // Formes 3D
-    body = loadShape("body.obj");
-    base = loadShape("base.obj");
-    shouldercylinder = loadShape("shouldercylinder.obj");
-    arm = loadShape("arm.obj");
+    body = loadShape("simula03/body.obj");
+    base = loadShape("simula03/base.obj");
+    shouldercylinder = loadShape("simula03/shouldercylinder.obj");
+    arm = loadShape("simula03/arm.obj");
 
     // Sliders
     sX = new Slider("X_Rotation", 50, 50, 300, 50, 0, 6.28, 0);
