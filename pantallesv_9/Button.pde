@@ -50,7 +50,7 @@ class Button {
      rect(this.x, this.y, this.w, this.h, 20);    // Rectangle del botó
      
      // Text (color, alineació i mida)
-     fill(44, 55, 97); textAlign(CENTER); textFont(titols); textSize(20);
+     fill(44, 55, 97); textAlign(CENTER); textFont(titols[1]); textSize(20);
      text(textBoto, this.x, this.y+7);
    }
    else if(mouseOverButton()){
@@ -59,7 +59,7 @@ class Button {
      rect(this.x, this.y, this.w, this.h, 20);    // Rectangle del botó
      
      // Text (color, alineació i mida)
-     fill(fillColor); textAlign(CENTER); textFont(titols); textSize(20);
+     fill(fillColor); textAlign(CENTER); textFont(titols[1]); textSize(20);
      text(textBoto, this.x, this.y+7);
    }
    else{
@@ -68,7 +68,7 @@ class Button {
      rect(this.x, this.y, this.w, this.h, 20);    // Rectangle del botó
      
      // Text (color, alineació i mida)
-     fill(44, 55, 97); textAlign(CENTER); textFont(titols); textSize(20);
+     fill(44, 55, 97); textAlign(CENTER); textFont(titols[1]); textSize(20);
      text(textBoto, this.x, this.y+7);
    }
    

@@ -2,18 +2,20 @@ enum Pantalles {ANIMATION, INICI, FILTERS, ABOUT, PREV, CREATE, EXPERIENCE, FOTO
 Pantalles pantalla;
 
 void setup(){
-  fullScreen();
+  fullScreen(P3D);
   strokeWeight(0);
   connectDB();
   inicialitza();   
   pantalla = Pantalles.ANIMATION;
+  hint(DISABLE_DEPTH_TEST);
+  hint(DISABLE_OPTIMIZED_STROKE);
 }
 
 void draw(){
   background(243, 246, 247);
   smooth(); frameRate(30);
   switch(pantalla){
-    case ANIMATION: if(millis() < 7000){displayAnimation();}else{ pantalla = Pantalles.INICI; } break;
+    case ANIMATION: if(millis() < 9000){displayAnimation();}else{ pantalla = Pantalles.INICI; } break;
     case INICI: displayInici(); break;
     case FILTERS: displayFilters(); break;
     case ABOUT: displayAbout(); break;
@@ -117,15 +119,13 @@ void mouseReleased(){
   else if(pantalla == Pantalles.FILTERS && simulationNo.onMouseOver()){ simulationNo.toggle(); }
   else if(pantalla == Pantalles.FILTERS && simulationYes.onMouseOver()){ simulationYes.toggle(); }
   else if(pantalla == Pantalles.CREATE && mouseOverFoto()){ selectInput("Selecciona una imatge ...", "fileSelected"); }
-  
-  filtersMaterials.checkMouse();
-  createMaterials.checkMouse();
-  s1.checkButtons();
-  s1.checkSliders();
-  s2.checkSlider();
-  s3.checkSliders();
-  s4.checkSliders();
-  s5.checkSliders();
+  else if(pantalla == Pantalles.FILTERS){filtersMaterials.checkMouse();}
+  else if(pantalla == Pantalles.CREATE){createMaterials.checkMouse();}
+  else if(pantalla == Pantalles.SIMULA01){ s1.checkButtons(); s1.checkSliders();}
+  else if(pantalla == Pantalles.SIMULA02){ s2.checkSlider();}
+  else if(pantalla == Pantalles.SIMULA03){ s3.checkSliders();}
+  else if(pantalla == Pantalles.SIMULA04){ s4.checkSliders();}
+  else if(pantalla == Pantalles.SIMULA05){ s5.checkSliders();}
 }
 
 void mouseDragged(){

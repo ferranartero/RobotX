@@ -72,7 +72,7 @@ class ExperienceButton {
        image(selectedFoto, this.x + 20, this.y+50, 260, 260);
        
        // Text (color, alineació i mida)
-       fill(44, 55, 97); textAlign(CENTER); textSize(50);textFont(titols);
+       fill(44, 55, 97); textAlign(CENTER); textSize(20);textFont(titols[0]);
        text(title, this.x+50, this.y+320);
      }else if(mouseOverButton()){
        fill(44, 55, 97, 25); noStroke();  
@@ -86,7 +86,7 @@ class ExperienceButton {
        image(selectedFoto, this.x + 20, this.y+50, 260, 260);
        
        // Text (color, alineació i mida)
-       fill(44, 55, 97); textAlign(CENTER); textSize(50);textFont(titols);
+       fill(44, 55, 97); textAlign(CENTER); textSize(20);textFont(titols[0]);
        text(title, this.x+50, this.y+320);
      }else{
        fill(243, 246, 247);     // Color quan ratolí a sobre
@@ -98,7 +98,7 @@ class ExperienceButton {
        image(selectedFoto, this.x + 20, this.y+50, 260, 260);
        
        // Text (color, alineació i mida)
-       fill(44, 55, 97); textAlign(CENTER); textSize(50);textFont(titols);
+       fill(44, 55, 97); textAlign(CENTER); textSize(20);textFont(titols[0]);
        text(title, this.x+50, this.y+320);
      }   
    popMatrix();

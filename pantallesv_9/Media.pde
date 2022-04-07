@@ -6,7 +6,8 @@ PImage add1, add2;
 PImage close1, close2;
 PImage right1, right2;
 PShape home1, home2;
-PFont name, titols, text;
+PFont name, text;
+PFont[] titols;
 PImage mostra, mostra2, mostra3, mostra4, mostra5;
 PImage[] imgs = new PImage[5];
 PImage[] createImgs = new PImage[5];
@@ -46,7 +47,7 @@ void inicialitzaFotos(){
 }
 
 void inicialitzaFonts(){
-  titols = createFont("titols.ttf", 18);
+  titols = new PFont[3]; titols[0] = createFont("titols.ttf", 20); titols[1] = createFont("titols.ttf", 30); titols[2] = createFont("titols.ttf", 50);
   text = createFont("text.ttf", 18);
-  name = createFont("logo.ttf", 18);
+  name = createFont("logo.ttf", 90);
 }

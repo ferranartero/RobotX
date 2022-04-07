@@ -18,7 +18,7 @@ void displayAnimation(){
      
     popMatrix();
     
-    if(millis()>5000){
+    if(millis()>7000){
       transparence+=5;
     }
     
@@ -71,7 +71,7 @@ void filters(){
     rect(width/2, height/2, filtersX, filtersY, 25);
     back.display();
     
-    fill(44, 55, 97); textAlign(CORNER); textFont(titols); textSize(25);
+    fill(44, 55, 97); textAlign(CORNER); textFont(titols[1]); textSize(25);
     text("MATERIALS", width/2-filtersX/2+200, height/2-filtersY/2+135);
     text("DIFFICULTY", width/2+filtersX/2-455, height/2-filtersY/2+135);
     text("SIMULATION", width/2+filtersX/2-455, height/2-filtersY/2+325);
@@ -85,7 +85,7 @@ void filters(){
     simulationYes.display();
     
     
-    textAlign(CENTER); textFont(titols); textSize(30); fill(44, 55, 97);
+    textAlign(CENTER); textFont(titols[1]); textSize(30); fill(44, 55, 97);
     text("FILTERS", width/2, height/2-filtersY/2+55);
   popStyle();
 }
@@ -100,35 +100,44 @@ void about(){
     rectMode(LEFT);fill(20, 125);rect(0,0,width,height);
     rectMode(CENTER);fill(243, 246, 247);
     rect(width/2, height/2, filtersX, filtersY, 25);
-    textAlign(CENTER); textFont(titols); textSize(30); fill(44, 55, 97);
+    textAlign(CENTER); textFont(titols[1]); textSize(30); fill(44, 55, 97);
     text("ABOUT", width/2, height/2-filtersY/2+55);
     back.display();
   popStyle();
 }
 
 void displayPrev(){
+  pushMatrix();
+  //translate(0,0, 10);
   displayInici();
   prev();
   backPrev.display();
+  popMatrix();
 }
 
 void prev(){
   pushStyle();
-     rectMode(LEFT);fill(20, 125);rect(0,0,width,height);
+     rectMode(LEFT);fill(20, 125);rect(0,0,width,height); //FONDO
+     
      rectMode(CENTER);fill(243, 246, 247);
-     rect(width/2, height/2, prevX, prevY, 25);
+     rect(width/2, height/2, prevX, prevY, 25); //
+     
      imageMode(CENTER);
      image(expSelected.selectedFoto, width/2-prevX/2+prevX/6+50, height/2, prevX/3, prevX/3);                 //imatge
-     fill(44, 55, 97); textAlign(CORNER); textFont(titols); textSize(50);
+     
+     fill(44, 55, 97); textAlign(CORNER); textFont(titols[2]); textSize(50);
      text(expSelected.title,  width/2-prevX/2+prevX/3+100, height/2-prevX/6+100);                    //titol
+     
      textFont(text); textSize(15);textAlign(CORNER);
      text(expSelected.description, width/2-prevX/2+prevX/3+450, height/2-prevX/6+240, 700, 200);     //descripció
+     
      fill(expSelected.difficulty); textSize(15);                                                     //dificultat
      switch(expSelected.dif){
        case 0: text("EASY", width/2-prevX/2+prevX/3+100, height/2-prevX/6+118); break;
        case 1: text("MEDIUM", width/2-prevX/2+prevX/3+100, height/2-prevX/6+118); break;
        case 2: text("DIFFICULT", width/2-prevX/2+prevX/3+100, height/2-prevX/6+118); break;
      }
+     
      goToExperience.display();
   popStyle();
 }
@@ -178,7 +187,7 @@ void displayCreate(){
     createMaterials.display();
     displayImagesCreate();
     
-    fill(44, 55, 97); textAlign(CENTER); textFont(titols); textSize(25);
+    fill(44, 55, 97); textAlign(CENTER); textFont(titols[1]); textSize(25);
     text("PROCEDURE", margeX+fotoPrevX + 52 + procedureX/2, height/2-fotoPrevX/2 + 170);
     text("MATERIALS", width-margeX-materialsX/2, height/2-fotoPrevX/2 + 170);
     
@@ -192,7 +201,7 @@ void displayCreate(){
         rectMode(CORNER); fill(20, 125); rect(0,0,width,height);
         rectMode(CENTER); fill(243, 246, 247);
         rect(width/2, height/2, prevX, codePanelY, 25);
-        textAlign(CENTER); textFont(titols); textSize(30); fill(44, 55, 97);
+        textAlign(CENTER); textFont(titols[1]); textSize(30); fill(44, 55, 97);
         text("CODE", width/2, height/2-codePanelY/2+55);
       popStyle();
       backCode.display();
@@ -235,7 +244,7 @@ void displayExperience(){
   image(expSelected.selectedFoto, margeX, height/2-fotoPrevX/2, fotoPrevX, fotoPrevX);
   displayImages();
   
-  fill(44, 55, 97); textAlign(CORNER); textFont(titols); textSize(50);
+  fill(44, 55, 97); textAlign(CORNER); textFont(titols[2]); textSize(50);
   text(expSelected.title, margeX+fotoPrevX + 50, margeY+logoY2+95);                               //titol
   
   fill(expSelected.difficulty); textSize(15);                                                     //dificultat
@@ -262,7 +271,7 @@ void displayExperience(){
   text(expSelected.procedure, margeX+fotoPrevX + 50, height/2-fotoPrevX/2 + 185, procedureX, procedureY);                 //procedure
   text(expSelected.materials, width-margeX-materialsX, height/2-fotoPrevX/2 + 185, materialsX, procedureY);               //materials
   
-  fill(44, 55, 97); textAlign(CENTER); textFont(titols); textSize(25);
+  fill(44, 55, 97); textAlign(CENTER); textFont(titols[2]); textSize(25);
   text("PROCEDURE", margeX+fotoPrevX + 52 + procedureX/2, height/2-fotoPrevX/2 + 160);
   text("MATERIALS", width-margeX-materialsX/2, height/2-fotoPrevX/2 + 160);
   home.display();
@@ -380,7 +389,7 @@ void code(){
     rectMode(CORNER); fill(20, 125); rect(0,0,width,height);
     rectMode(CENTER); fill(243, 246, 247);
     rect(width/2, height/2, prevX, codePanelY, 25);
-    textAlign(CENTER); textFont(titols); textSize(30); fill(44, 55, 97);
+    textAlign(CENTER); textFont(titols[1]); textSize(30); fill(44, 55, 97);
     text("CODE", width/2, height/2-codePanelY/2+55);
     textFont(text); textSize(15);textAlign(CORNER); rectMode(CORNER); fill(39, 38, 53);
     text(expSelected.code, width/2-prevX/2+50, height/2-codePanelY/2+80, prevX-100, codePanelY-130);
