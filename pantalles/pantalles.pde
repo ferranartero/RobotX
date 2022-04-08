@@ -48,13 +48,14 @@ void draw(){
 
   }
   
-  if(pantalla == Pantalles.EXPERIENCE){  //experience
-     displayLogo();
+  if(c==5){  //experience
+     displayExperience();
 
   }
   
-  if(pantalla == Pantalles.FOTOS){  //fotos
-    
+  if(c==6){  //fotos
+    displayExperience();
+    displayAbout();
   }
   
   if(pantalla == Pantalles.CODI){  //codi
@@ -69,8 +70,8 @@ void draw(){
 void keyPressed(){
   if(keyCode == RIGHT){
     c++;
-    if(c>5){
-      c=5;
+    if(c>7){
+      c=7;
     }
   }
   
@@ -102,10 +103,18 @@ void keyPressed(){
 }
 
 void inicialitza(){
+  
   margeX = (width-4*experienceX)/5;
-  yMax = (margeY+logoY2+50+createButtonY+50+filterButtonY+30+2*experienceY+200)-height;
+  yMax = (margeY+logoY2+50+createButtonY+50+filterButtonX+30+2*experienceY+200)-height;
   filtersX = width*4/7;
   filtersY = height*4/7;  
   prevX = width*2/3;
-  prevY = height*7/9;
+  prevY = height*7/16;
+  fotoPrevX = 576;
+  fotoPrevY = height-margeY2-margeY-logoY2-50;
+  procedureX = 3*(width-2*margeX-fotoPrevX-75)/5;
+  procedureY = height-logoY2-margeY- margeY2-bSimulationY-320;
+  materialsX = 2*(width-2*margeX-fotoPrevX-75)/5;
+  screenX = width/2-margeX+logoY2/2;
+  screenY = height-margeY-logoY2-100-margeY2;
 }

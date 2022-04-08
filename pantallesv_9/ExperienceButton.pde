@@ -9,13 +9,15 @@ class ExperienceButton {
  color difficulty;
  PImage img;
  int numExp;
- String description, procedure, materials, code;
+ String description, code;
+ String[] procedure;
+ String[][] materials;
  PImage[] imgs;
  PImage selectedFoto;
  int selected;
  
  // Mètode Constructor
- ExperienceButton(PImage[] img, int dif, String title, String description, String procedure, String materials, String code, int ne, int simula){
+ ExperienceButton(PImage[] img, int dif, String title, String description, String[] procedure, String materials[][], String code, int ne, int simula){
    this.numExp = ne;  
    this.imgs = img;
    this.selectedFoto = img[0];
@@ -63,7 +65,7 @@ class ExperienceButton {
      this.y2 = y2;
      rectMode(CORNER); imageMode(CORNER); textMode(CORNER);
      if(!enabled){
-       fill(243, 246, 247);                                           // Color quan ratolí a sobre
+       fill(255);                                           // Color quan ratolí a sobre
        stroke(39, 38, 53); strokeWeight(0.5);                         // Color i gruixa del contorn
        rect(this.x, this.y, experienceX, experienceY, redondeig);     // Rectangle del botó
        fill(difficulty); noStroke();
@@ -72,12 +74,12 @@ class ExperienceButton {
        image(selectedFoto, this.x + 20, this.y+50, 260, 260);
        
        // Text (color, alineació i mida)
-       fill(44, 55, 97); textAlign(CENTER); textSize(20);textFont(titols[0]);
-       text(title, this.x+50, this.y+320);
+       fill(44, 55, 97); textAlign(CORNER); textSize(10);textFont(titols[0]);
+       text(title, this.x+20, this.y+330);
      }else if(mouseOverButton()){
        fill(44, 55, 97, 25); noStroke();  
        rect(this.x-3, this.y-3, experienceX+6, experienceY+6, redondeig);
-       fill(243, 246, 247);      // Color quan ratolí a sobre
+       fill(255);      
        stroke(39, 38, 53);  strokeWeight(0.5);   //Color i gruixa del contorn
        rect(this.x, this.y, experienceX, experienceY, redondeig);    // Rectangle del botó
        fill(difficulty);noStroke();
@@ -86,10 +88,10 @@ class ExperienceButton {
        image(selectedFoto, this.x + 20, this.y+50, 260, 260);
        
        // Text (color, alineació i mida)
-       fill(44, 55, 97); textAlign(CENTER); textSize(20);textFont(titols[0]);
-       text(title, this.x+50, this.y+320);
+       fill(44, 55, 97); textAlign(CORNER); textSize(10);textFont(titols[0]);
+       text(title, this.x+20, this.y+330);
      }else{
-       fill(243, 246, 247);     // Color quan ratolí a sobre
+       fill(255);     // Color quan ratolí a sobre
        stroke(39, 38, 53); strokeWeight(0.5);  // Color i gruixa del contorn
        rect(this.x, this.y, experienceX, experienceY, redondeig);    // Rectangle del botó
        fill(difficulty);noStroke();
@@ -98,8 +100,8 @@ class ExperienceButton {
        image(selectedFoto, this.x + 20, this.y+50, 260, 260);
        
        // Text (color, alineació i mida)
-       fill(44, 55, 97); textAlign(CENTER); textSize(20);textFont(titols[0]);
-       text(title, this.x+50, this.y+320);
+       fill(44, 55, 97); textAlign(CORNER); textSize(15);textFont(titols[0]);
+       text(title, this.x+20, this.y+330);
      }   
    popMatrix();
    

@@ -2,7 +2,7 @@ enum Pantalles {ANIMATION, INICI, FILTERS, ABOUT, PREV, CREATE, EXPERIENCE, FOTO
 Pantalles pantalla;
 
 void setup(){
-  fullScreen(P3D);
+  fullScreen();
   strokeWeight(0);
   connectDB();
   inicialitza();   
@@ -15,7 +15,7 @@ void draw(){
   background(243, 246, 247);
   smooth(); frameRate(30);
   switch(pantalla){
-    case ANIMATION: if(millis() < 9000){displayAnimation();}else{ pantalla = Pantalles.INICI; } break;
+    case ANIMATION: if(millis() < 7000){displayAnimation();}else{ pantalla = Pantalles.INICI; } break;
     case INICI: displayInici(); break;
     case FILTERS: displayFilters(); break;
     case ABOUT: displayAbout(); break;

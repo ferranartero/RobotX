@@ -71,7 +71,6 @@ void displayAbout(){
     rectMode(CENTER);fill(147, 207, 226);
     rect(width/2, height/2, filtersX, filtersY, 25);
     textAlign(CENTER);textSize(15);fill(39, 38, 53);
-    text("about", width/2, height/2);
   popStyle();
 }
 
@@ -86,5 +85,26 @@ void displayPrev(){
 }
 
 void displayExperience(){
+  pushStyle();
+  rectMode(CORNER);
+  fill(147, 207, 226);
+  rect(width/2, margeY+logoY2/2+y+10, logoX2, logoY2, 10);
   
+  rect(margeX-5, height/2-fotoPrevX/2-5, fotoPrevX+10, fotoPrevX+10, 10);
+  
+  
+  rect(margeX+fotoPrevX + 50, margeY+logoY2+75, 400, 70);                               //titol
+  
+  rect(margeX+fotoPrevX + 50, margeY+logoY2+150, 70, 20); //Dif
+  
+  
+  rect(margeX+fotoPrevX + 50, height/2-fotoPrevX/2+40, width-2*margeX-fotoPrevX-50, 125);           //descripció
+  rect(margeX+fotoPrevX + 50, height/2-fotoPrevX/2 + 185, procedureX, procedureY);                 //procedure
+  rect(width-margeX-materialsX, height/2-fotoPrevX/2 + 185, materialsX, procedureY);               //materials
+  
+  rectMode(CENTER);
+  rect(margeX+ filterButtonX/2,margeY+logoY2+60, filterButtonX, filterButtonY);  
+  rect(width-margeX-materialsX/2,  margeY + logoY2+325+procedureY+80/2+30, materialsX, 80);
+  rect(margeX+fotoPrevX + 50 + procedureX/2,  margeY + logoY2+325+procedureY+80/2+30, procedureX, 80);
+  popStyle();
 }

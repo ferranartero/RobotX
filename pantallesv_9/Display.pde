@@ -18,7 +18,7 @@ void displayAnimation(){
      
     popMatrix();
     
-    if(millis()>7000){
+    if(millis()>5000){
       transparence+=5;
     }
     
@@ -66,7 +66,7 @@ void displayFilters(){
 
 void filters(){
   pushStyle();
-    rectMode(LEFT);fill(20,125);rect(0,0,width,height);
+    rectMode(LEFT);fill(20,200);rect(0,0,width,height);
     rectMode(CENTER); fill(243, 246, 247);
     rect(width/2, height/2, filtersX, filtersY, 25);
     back.display();
@@ -97,7 +97,7 @@ void displayAbout(){
 
 void about(){
   pushStyle();
-    rectMode(LEFT);fill(20, 125);rect(0,0,width,height);
+    rectMode(LEFT);fill(20, 200);rect(0,0,width,height);
     rectMode(CENTER);fill(243, 246, 247);
     rect(width/2, height/2, filtersX, filtersY, 25);
     textAlign(CENTER); textFont(titols[1]); textSize(30); fill(44, 55, 97);
@@ -117,25 +117,25 @@ void displayPrev(){
 
 void prev(){
   pushStyle();
-     rectMode(LEFT);fill(20, 125);rect(0,0,width,height); //FONDO
+     rectMode(LEFT);fill(20, 200);rect(0,0,width,height); //FONDO
      
      rectMode(CENTER);fill(243, 246, 247);
      rect(width/2, height/2, prevX, prevY, 25); //
      
      imageMode(CENTER);
-     image(expSelected.selectedFoto, width/2-prevX/2+prevX/6+50, height/2, prevX/3, prevX/3);                 //imatge
+     image(expSelected.selectedFoto, width/2-prevX/2+prevX/6+70, height/2, prevX/3, prevX/3);                 //imatge
      
-     fill(44, 55, 97); textAlign(CORNER); textFont(titols[2]); textSize(50);
-     text(expSelected.title,  width/2-prevX/2+prevX/3+100, height/2-prevX/6+100);                    //titol
+     fill(44, 55, 97); textAlign(CORNER); textFont(titols[2]); textSize(45);
+     text(expSelected.title,  width/2-prevX/2+prevX/3+100, height/2-prevX/6+95);                    //titol
      
      textFont(text); textSize(15);textAlign(CORNER);
      text(expSelected.description, width/2-prevX/2+prevX/3+450, height/2-prevX/6+240, 700, 200);     //descripció
      
      fill(expSelected.difficulty); textSize(15);                                                     //dificultat
      switch(expSelected.dif){
-       case 0: text("EASY", width/2-prevX/2+prevX/3+100, height/2-prevX/6+118); break;
-       case 1: text("MEDIUM", width/2-prevX/2+prevX/3+100, height/2-prevX/6+118); break;
-       case 2: text("DIFFICULT", width/2-prevX/2+prevX/3+100, height/2-prevX/6+118); break;
+       case 0: text("EASY", width/2-prevX/2+prevX/3+105, height/2-prevX/6+118); break;
+       case 1: text("MEDIUM", width/2-prevX/2+prevX/3+105, height/2-prevX/6+118); break;
+       case 2: text("DIFFICULT", width/2-prevX/2+prevX/3+105, height/2-prevX/6+118); break;
      }
      
      goToExperience.display();
@@ -198,7 +198,7 @@ void displayCreate(){
     if(addCodePanel){
       addArduinoCode.setEnabled(false);
       pushStyle();
-        rectMode(CORNER); fill(20, 125); rect(0,0,width,height);
+        rectMode(CORNER); fill(20, 200); rect(0,0,width,height);
         rectMode(CENTER); fill(243, 246, 247);
         rect(width/2, height/2, prevX, codePanelY, 25);
         textAlign(CENTER); textFont(titols[1]); textSize(30); fill(44, 55, 97);
@@ -268,9 +268,13 @@ void displayExperience(){
   
   textFont(text); textSize(15); textAlign(CORNER); rectMode(CORNER); fill(39, 38, 53);
   text(expSelected.description, margeX+fotoPrevX + 50, height/2-fotoPrevX/2, width-2*margeX-fotoPrevX-50, 125);           //descripció
-  text(expSelected.procedure, margeX+fotoPrevX + 50, height/2-fotoPrevX/2 + 185, procedureX, procedureY);                 //procedure
-  text(expSelected.materials, width-margeX-materialsX, height/2-fotoPrevX/2 + 185, materialsX, procedureY);               //materials
   
+  for(int i = 0; i<expSelected.procedure.length; i++){
+    text(i+") "+expSelected.procedure[i], margeX+fotoPrevX + 50, height/2-fotoPrevX/2 + 185+i*60, procedureX, procedureY);                 //procedure
+  }
+  for(int i = 0; i<expSelected.procedure.length; i++){
+  text("- "+expSelected.materials[i], width-margeX-materialsX, height/2-fotoPrevX/2 + 185+i*20, materialsX, procedureY);               //materials
+  }
   fill(44, 55, 97); textAlign(CENTER); textFont(titols[2]); textSize(25);
   text("PROCEDURE", margeX+fotoPrevX + 52 + procedureX/2, height/2-fotoPrevX/2 + 160);
   text("MATERIALS", width-margeX-materialsX/2, height/2-fotoPrevX/2 + 160);
@@ -292,7 +296,7 @@ void displayExperience(){
 void displayImages(){
   pushMatrix();
   imageMode(CORNER); rectMode(CORNER);
-  for(int i = 0; i<5; i++){
+  for(int i = 0; i<expSelected.imgs.length; i++){
     image(expSelected.imgs[i], margeX+119*i, height/2+fotoPrevX/2+30, 100, 100);
     if(mouseOverImages() == i){
       stroke(50, 120, 172); strokeWeight(1.5); noFill();
@@ -366,7 +370,7 @@ void displayFotos(){
 
 void fotos(){
   pushStyle();
-    rectMode(LEFT);fill(20, 125);rect(0,0,width,height);imageMode(CENTER);
+    rectMode(LEFT);fill(20, 200); rect(0,0,width,height);imageMode(CENTER);
     expSelected.selectedFoto = expSelected.imgs[expSelected.selected];
     image(expSelected.selectedFoto, width/2, height/2, 800, 800);
     backFotos.display();
@@ -386,7 +390,7 @@ void displayCode(){
 
 void code(){
   pushStyle();
-    rectMode(CORNER); fill(20, 125); rect(0,0,width,height);
+    rectMode(CORNER); fill(20, 200); rect(0,0,width,height);
     rectMode(CENTER); fill(243, 246, 247);
     rect(width/2, height/2, prevX, codePanelY, 25);
     textAlign(CENTER); textFont(titols[1]); textSize(30); fill(44, 55, 97);

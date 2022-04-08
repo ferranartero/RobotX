@@ -24,3 +24,18 @@ int filtersX;
 int filtersY;
 int prevX;
 int prevY;
+
+int fotoPrevX;
+ int  fotoPrevY;
+ int  procedureX;
+ int  procedureY;
+ int materialsX;
+int  screenX;
+  int screenY;
+  int bSimulationY = 80;
+  int margeY2 = 100;
+
+
+void inicialitzaConstants(){
+  
+}

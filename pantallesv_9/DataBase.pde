@@ -96,3 +96,99 @@ void deleteTipoComponente(String n){
   msql.query(q);
   println("DELETE SUCCESS!!");
 }
+
+int getNumRowsExperiencia(){
+  String q = "SELECT COUNT(*) AS n FROM experiencia e, dificultad d WHERE e.dificultad=d.id ORDER BY e.id ASC";
+  msql.query(q);
+  msql.next();
+  return msql.getInt("n");
+}
+
+String[][] getInfoExperiencies(){
+  int numFiles = getNumRowsExperiencia();
+  String[][] info = new String[numFiles][6];
+  String q = "SELECT e.id AS id, e.nombre AS nombre, e.descripcion AS descripcion, e.codi AS codi, e.simula AS simula, d.nombre AS dificultad FROM experiencia e, dificultad d WHERE e.dificultad=d.id ORDER BY e.id ASC";
+  msql.query(q);
+  int nr=0;
+  while(msql.next()){
+    info[nr][0] = String.valueOf(msql.getInt("id"));
+    info[nr][1] = msql.getString("nombre");
+    info[nr][2] = msql.getString("descripcion");
+    info[nr][3] = msql.getString("codi");
+    info[nr][4] = String.valueOf(msql.getInt("simula"));
+    info[nr][5] = msql.getString("dificultad");
+    nr++;
+  }
+  return info;
+}
+
+
+int getNumRowsProcedimientos(int ide){
+  String q = "SELECT COUNT(*) AS n FROM procedimiento p WHERE p.experiencia='"+ide+"'";
+  msql.query(q);
+  msql.next();
+  return msql.getInt("n");
+}
+
+String[] getProcedimientos(int ide){
+  int numFiles = getNumRowsProcedimientos(ide);
+  String[] info = new String[numFiles];
+  String q = "SELECT p.descripcion AS descripcion FROM procedimiento p WHERE p.experiencia='"+ide+"' ORDER BY p.orden ASC";
+  msql.query(q);
+  int nr=0;
+  while(msql.next()){
+    info[nr] = msql.getString("descripcion");
+    nr++;
+  }
+  return info;
+}
+
+int getNumRowsFotos(int ide){
+  String q = "SELECT COUNT(*) AS n FROM foto f WHERE f.experiencia='"+ide+"'";
+  msql.query(q);
+  msql.next();
+  return msql.getInt("n");
+}
+
+String[] getFotos(int ide){
+  int numFiles = getNumRowsFotos(ide);
+  String[] info = new String[numFiles];
+  String q = "SELECT f.nombre AS nombre FROM foto f WHERE f.experiencia='"+ide+"' ORDER BY f.nombre ASC";
+  msql.query(q);
+  int nr=0;
+  while(msql.next()){
+    info[nr] = msql.getString("nombre");
+    nr++;
+  }
+  return info;
+}
+
+PImage[] createArrayFotos(String[] fotos){
+  PImage[] imgs = new PImage[fotos.length];
+  for(int i=0; i<fotos.length; i++){
+    imgs[i] = loadImage(fotos[i]);
+  }
+  return imgs;
+}
+
+int getNumRowsComponentes(int ide){
+  String q = "SELECT COUNT(*) AS n FROM experiencia e, componentesexp ce, componente c, tipocomponente tc WHERE e.id=ce.experiencia AND ce.componente=c.id AND c.tipo=tc.id AND e.id='"+ide+"' ORDER BY c.nombre ASC";
+  msql.query(q);
+  msql.next();
+  return msql.getInt("n");
+}
+
+String[][] getComponentes(int ide){
+  int numFiles = getNumRowsComponentes(ide);
+  String[][] info = new String[numFiles][5];
+  String q = "SELECT c.nombre AS nombre, tc.nombre AS tipo, ce.cantidad AS cantidad FROM experiencia e, componentesexp ce, componente c, tipocomponente tc WHERE e.id=ce.experiencia AND ce.componente=c.id AND c.tipo=tc.id AND e.id='"+ide+"' ORDER BY c.nombre ASC";
+  msql.query(q);
+  int nr=0;
+  while(msql.next()){
+    info[nr][0] = msql.getString("nombre");
+    info[nr][1] = msql.getString("tipo");
+    info[nr][2] = String.valueOf(msql.getInt("cantidad"));
+    nr++;
+  }
+  return info;
+}

@@ -25,7 +25,7 @@ class TextField {
   
   // Dibuixa el Camp de Text
   void display() {
-      textFont(titols[0]);
+      textFont(titols[2]);
       if (selected) {
          fill(selectedColor);
       } else {

@@ -11,7 +11,7 @@ PFont[] titols;
 PImage mostra, mostra2, mostra3, mostra4, mostra5;
 PImage[] imgs = new PImage[5];
 PImage[] createImgs = new PImage[5];
-String[] materials = {"Arduino UNO", "Bearbord", "Resistencia", "LED", "Motor", "Piezo"};
+String[] materials = {"Motor", "Sensor", "Button", "LED", "Actuator", "Capacitator"};
 
 void inicialitzaMedia(){
   inicialitzaFotos();
