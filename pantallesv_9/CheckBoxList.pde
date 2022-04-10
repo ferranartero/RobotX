@@ -73,4 +73,42 @@ class CheckBoxList {
     return false;
   }
   
+  int getNumSelected(){
+    int n=0;
+    for(CheckBoxText cb : cbs){
+      if(cb.checked){
+        n++;
+      }
+    }
+    return n;
+  }
+  
+  String[] getSelectedValues(){
+    String[] selected = new String[getNumSelected()];
+    int n=0;
+    for(CheckBoxText cb : cbs){
+      if(cb.checked){
+        selected[n]=cb.texte;
+        n++;
+      }
+    }
+    return selected;
+  }
+  
+  String getSelectedValuesIn(){
+    String selected = "";
+    int n = getNumSelected();
+    int i = 0;
+    for(CheckBoxText cb : cbs){
+      if(cb.checked){
+        selected+="'"+cb.texte+"'";
+        if(i<n-1){
+          selected+=",";
+        }
+        i++;
+      }
+    }
+    return selected;
+  }
+  
 }

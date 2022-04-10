@@ -47,7 +47,7 @@ void inicialitzaFotos(){
 }
 
 void inicialitzaFonts(){
-  titols = new PFont[3]; titols[0] = createFont("titols.ttf", 20); titols[1] = createFont("titols.ttf", 30); titols[2] = createFont("titols.ttf", 50);
+  titols = new PFont[3]; titols[0] = createFont("titols.ttf", 17); titols[1] = createFont("titols.ttf", 30); titols[2] = createFont("titols.ttf", 50);
   text = createFont("text.ttf", 18);
   name = createFont("logo.ttf", 90);
 }

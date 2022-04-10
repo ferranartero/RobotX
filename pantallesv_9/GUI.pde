@@ -1,5 +1,5 @@
 RoundButton filters, about, home, back, backPrev, backSimulator, backCode, backFotos, logo2, fotoLeft, fotoRight;
-Button create, goToExperience, goToSimulation, viewArduinoCode, addArduinoCode, saveCreation;
+Button create, goToExperience, goToSimulation, viewArduinoCode, addArduinoCode, saveCreation, saveFilters;
 ExperienceButton experience1, experience3, experience4, experience2, experience5, experience6, experience7, experience8;
 Select difficulties;
 TextArea createDescription, createProcedure, createCode;
@@ -29,6 +29,7 @@ void inicialitzaBotons() {
   viewArduinoCode = new Button("VIEW ARDUINO CODE", width-margeX-materialsX/2, margeY + logoY2+325+procedureY+bSimulationY/2, materialsX, bSimulationY);
   addArduinoCode = new Button("ADD ARDUINO CODE", margeX+fotoPrevX + 50 + procedureX/2, margeY + logoY2+325+procedureY+bSimulationY/2+30, procedureX, bSimulationY);
   saveCreation = new Button("SAVE", width-margeX-materialsX/2, margeY + logoY2+325+procedureY+bSimulationY/2+30, materialsX, bSimulationY);
+  saveFilters = new Button("SAVE FILTERS", width/2, height/2-filtersY/2+560, 350, 60);
 
   //SELECT
   difficulties = new Select(diff, margeX+fotoPrevX + 52, margeY+logoY2+92, 150, 21);
@@ -42,7 +43,7 @@ void inicialitzaBotons() {
   createCode = new TextArea(width/2-prevX/2+50, height/2-codePanelY/2+80, prevX-100, codePanelY-130, 129, 25);
 
   //CHECKBOXLISTS
-  filtersMaterials = new CheckBoxList(materials, width/2-filtersX/2+200, height/2-filtersY/2+175, 30, 30);
+  filtersMaterials = new CheckBoxList(materials, width/2-filtersX/2+180, height/2-filtersY/2+175, 30, 30);
   createMaterials = new CheckBoxList(materials, width-margeX-materialsX+40, height/2-fotoPrevX/2+200, 30, 30);
 
   //CHECKBOXTEXT
@@ -54,7 +55,6 @@ void inicialitzaBotons() {
 
 
   experiences = new ArrayList<>();
-
   String[][] info = getInfoExperiencies();
   for (int i=0; i<info.length; i++) {
     int id = Integer.valueOf(info[i][0]);

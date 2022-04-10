@@ -181,13 +181,46 @@ int getNumRowsComponentes(int ide){
 String[][] getComponentes(int ide){
   int numFiles = getNumRowsComponentes(ide);
   String[][] info = new String[numFiles][5];
-  String q = "SELECT c.nombre AS nombre, tc.nombre AS tipo, ce.cantidad AS cantidad FROM experiencia e, componentesexp ce, componente c, tipocomponente tc WHERE e.id=ce.experiencia AND ce.componente=c.id AND c.tipo=tc.id AND e.id='"+ide+"' ORDER BY c.nombre ASC";
+  String q = "SELECT c.nombre AS nombre, tc.nombre AS tipo, ce.cantidad AS cantidad FROM experiencia e, componentesexp ce, componente c, tipocomponente tc WHERE e.id=ce.experiencia AND ce.componente=c.id AND c.tipo=tc.id AND e.id='"+ide+"' ORDER BY tc.nombre ASC";
   msql.query(q);
   int nr=0;
   while(msql.next()){
     info[nr][0] = msql.getString("nombre");
     info[nr][1] = msql.getString("tipo");
     info[nr][2] = String.valueOf(msql.getInt("cantidad"));
+    nr++;
+  }
+  return info;
+}
+
+int getNumRowsFiltrar(String comps, String dif, boolean sim){
+  String s = !sim ? "'0'" : "'1', '2', '3', '4', '5'";
+  String q ="SELECT COUNT(DISTINCT e.id) AS n "+
+  "FROM experiencia e, dificultad d, componentesexp ce, componente c, tipocomponente tc "+
+  "WHERE e.dificultad=d.id AND e.id=ce.experiencia AND ce.componente=c.id AND c.tipo=tc.id AND d.nombre='"+dif+"' AND "+
+  " e.simula IN ("+s+") AND tc.nombre IN ("+comps+") ORDER BY e.id ASC";
+  msql.query(q);
+  msql.next();
+  return msql.getInt("n");
+}
+
+String[][] getFiltraExperiencies(String comps, String dif, boolean sim){
+  String s = !sim ? "'0'" : "'1', '2', '3', '4', '5'";
+  int numFiles = getNumRowsFiltrar(comps, dif, sim);
+  String[][] info = new String[numFiles][6];
+  String q = "SELECT e.id AS id, e.nombre AS nombre, e.descripcion AS descripcion, e.codi AS codi, e.simula AS simula, d.nombre AS dificultad "+
+  "FROM experiencia e, dificultad d, componentesexp ce, componente c, tipocomponente tc "+
+  "WHERE e.dificultad=d.id AND e.id=ce.experiencia AND ce.componente=c.id AND c.tipo=tc.id AND d.nombre='"+dif+"' AND "+
+  " e.simula IN ("+s+") AND tc.nombre IN ("+comps+") ORDER BY e.id ASC";
+  msql.query(q);
+  int nr=0;
+  while(nr<numFiles){
+    info[nr][0] = String.valueOf(msql.getInt("id"));
+    info[nr][1] = msql.getString("nombre");
+    info[nr][2] = msql.getString("descripcion");
+    info[nr][3] = msql.getString("codi");
+    info[nr][4] = String.valueOf(msql.getInt("simula"));
+    info[nr][5] = msql.getString("dificultad");
     nr++;
   }
   return info;

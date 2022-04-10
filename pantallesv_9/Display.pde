@@ -49,11 +49,20 @@ void experiences(){
     about.display(); 
     
     //visualitza experiences
-    for(int i = 0; i<experiences.size(); i++){
-      int fila = i/4; int columna = i%4;
-      ExperienceButton e = experiences.get(i);
-      e.selectedFoto = e.imgs[0];
-      e.display((columna+1)*margeX+columna*experienceX, margeY+logoY2+50+createButtonY+50+filterButtonX+30+experienceY*fila+100*fila, experienceX, experienceY, y);
+    if(!filtersOn){
+      for(int i = 0; i<experiences.size(); i++){
+        int fila = i/4; int columna = i%4;
+        ExperienceButton e = experiences.get(i);
+        e.selectedFoto = e.imgs[0];
+        e.display((columna+1)*margeX+columna*experienceX, margeY+logoY2+50+createButtonY+50+filterButtonX+30+experienceY*fila+100*fila, experienceX, experienceY, y);
+      }
+    }else{
+      for(int i = 0; i<filteredExp.size(); i++){
+        int fila = i/4; int columna = i%4;
+        ExperienceButton e = filteredExp.get(i);
+        e.selectedFoto = e.imgs[0];
+        e.display((columna+1)*margeX+columna*experienceX, margeY+logoY2+50+createButtonY+50+filterButtonX+30+experienceY*fila+100*fila, experienceX, experienceY, y);
+      }
     }
     
   popStyle();
@@ -72,7 +81,7 @@ void filters(){
     back.display();
     
     fill(44, 55, 97); textAlign(CORNER); textFont(titols[1]); textSize(25);
-    text("MATERIALS", width/2-filtersX/2+200, height/2-filtersY/2+135);
+    text("MATERIALS", width/2-filtersX/2+180, height/2-filtersY/2+135);
     text("DIFFICULTY", width/2+filtersX/2-455, height/2-filtersY/2+135);
     text("SIMULATION", width/2+filtersX/2-455, height/2-filtersY/2+325);
     
@@ -83,6 +92,7 @@ void filters(){
     difficultyD.display();
     simulationNo.display();
     simulationYes.display();
+    saveFilters.display();
     
     
     textAlign(CENTER); textFont(titols[1]); textSize(30); fill(44, 55, 97);
@@ -123,7 +133,8 @@ void prev(){
      rect(width/2, height/2, prevX, prevY, 25); //
      
      imageMode(CENTER);
-     image(expSelected.selectedFoto, width/2-prevX/2+prevX/6+70, height/2, prevX/3, prevX/3);                 //imatge
+     rect(width/2-prevX/2+prevX/6+70, height/2, prevX/3, prevX/3, 5);  
+     image(expSelected.selectedFoto, width/2-prevX/2+prevX/6+70, height/2, prevX/3-10, prevX/3-10);                 //imatge
      
      fill(44, 55, 97); textAlign(CORNER); textFont(titols[2]); textSize(45);
      text(expSelected.title,  width/2-prevX/2+prevX/3+100, height/2-prevX/6+95);                    //titol
@@ -133,9 +144,9 @@ void prev(){
      
      fill(expSelected.difficulty); textSize(15);                                                     //dificultat
      switch(expSelected.dif){
-       case 0: text("EASY", width/2-prevX/2+prevX/3+105, height/2-prevX/6+118); break;
-       case 1: text("MEDIUM", width/2-prevX/2+prevX/3+105, height/2-prevX/6+118); break;
-       case 2: text("DIFFICULT", width/2-prevX/2+prevX/3+105, height/2-prevX/6+118); break;
+       case 0: text("EASY", width/2-prevX/2+prevX/3+100, height/2-prevX/6+118); break;
+       case 1: text("MEDIUM", width/2-prevX/2+prevX/3+100, height/2-prevX/6+118); break;
+       case 2: text("DIFFICULT", width/2-prevX/2+prevX/3+100, height/2-prevX/6+118); break;
      }
      
      goToExperience.display();
@@ -249,9 +260,9 @@ void displayExperience(){
   
   fill(expSelected.difficulty); textSize(15);                                                     //dificultat
   switch(expSelected.dif){
-    case 0: text("EASY", margeX+fotoPrevX + 50, margeY+logoY2+113); break;
-    case 1: text("MEDIUM", margeX+fotoPrevX + 50, margeY+logoY2+113); break;
-    case 2: text("DIFFICULT", margeX+fotoPrevX + 50, margeY+logoY2+113); break;
+    case 0: text("EASY", margeX+fotoPrevX + 50, margeY+logoY2+120); break;
+    case 1: text("MEDIUM", margeX+fotoPrevX + 50, margeY+logoY2+120); break;
+    case 2: text("DIFFICULT", margeX+fotoPrevX + 50, margeY+logoY2+120); break;
   }
   
   if(pantalla == Pantalles.EXPERIENCE){
@@ -268,16 +279,24 @@ void displayExperience(){
   
   textFont(text); textSize(15); textAlign(CORNER); rectMode(CORNER); fill(39, 38, 53);
   text(expSelected.description, margeX+fotoPrevX + 50, height/2-fotoPrevX/2, width-2*margeX-fotoPrevX-50, 125);           //descripció
-  
+  String fullProcedure ="";
   for(int i = 0; i<expSelected.procedure.length; i++){
-    text(i+") "+expSelected.procedure[i], margeX+fotoPrevX + 50, height/2-fotoPrevX/2 + 185+i*60, procedureX, procedureY);                 //procedure
+    fullProcedure += i+1+") "+expSelected.procedure[i]+"\n\n";
   }
-  for(int i = 0; i<expSelected.procedure.length; i++){
-  text("- "+expSelected.materials[i], width-margeX-materialsX, height/2-fotoPrevX/2 + 185+i*20, materialsX, procedureY);               //materials
+  text(fullProcedure, margeX+fotoPrevX + 50, height/2-fotoPrevX/2 + 135, procedureX, procedureY);                 //procedure
+  
+  for(int i = 0; i<expSelected.materials.length; i++){
+    if(expSelected.materials[i][0] == null){
+      text("- "+expSelected.materials[i][2]+ "x "+expSelected.materials[i][1], width-margeX-materialsX, height/2-fotoPrevX/2 + 135+i*50, materialsX, procedureY);
+    } else if (expSelected.materials[i][1] == null){
+      text("- "+expSelected.materials[i][2]+ "x "+expSelected.materials[i][0], width-margeX-materialsX, height/2-fotoPrevX/2 + 135+i*50, materialsX, procedureY);
+    }else{
+      text("- "+expSelected.materials[i][2]+ "x "+expSelected.materials[i][1]+" - "+expSelected.materials[i][0], width-margeX-materialsX, height/2-fotoPrevX/2 + 135+i*50, materialsX, procedureY);               //materials
+    }
   }
   fill(44, 55, 97); textAlign(CENTER); textFont(titols[2]); textSize(25);
-  text("PROCEDURE", margeX+fotoPrevX + 52 + procedureX/2, height/2-fotoPrevX/2 + 160);
-  text("MATERIALS", width-margeX-materialsX/2, height/2-fotoPrevX/2 + 160);
+  text("PROCEDURE", margeX+fotoPrevX + 52 + procedureX/2, height/2-fotoPrevX/2 + 110);
+  text("MATERIALS", width-margeX-materialsX/2, height/2-fotoPrevX/2 + 110);
   home.display();
   if(expSelected.simulacio == 0){
     goToSimulation.setEnabled(false);
@@ -395,8 +414,14 @@ void code(){
     rect(width/2, height/2, prevX, codePanelY, 25);
     textAlign(CENTER); textFont(titols[1]); textSize(30); fill(44, 55, 97);
     text("CODE", width/2, height/2-codePanelY/2+55);
-    textFont(text); textSize(15);textAlign(CORNER); rectMode(CORNER); fill(39, 38, 53);
-    text(expSelected.code, width/2-prevX/2+50, height/2-codePanelY/2+80, prevX-100, codePanelY-130);
+    textFont(text); textSize(15); rectMode(CORNER); fill(39, 38, 53);
+    if(expSelected.code == null){
+      textAlign(CENTER);
+      text("NO CODE NEEDED", width/2, height/2);
+    } else{
+      textAlign(CORNER);
+      text(expSelected.code, width/2-prevX/2+50, height/2-codePanelY/2+80, prevX-100, codePanelY-130);
+    }
   popStyle();
 }
 
@@ -441,7 +466,8 @@ void mouseCursor(){
      pantalla == Pantalles.FILTERS && filtersMaterials.checkCursor() ||
      pantalla == Pantalles.FILTERS && (difficultyE.onMouseOver() || difficultyM.onMouseOver() || difficultyD.onMouseOver() || simulationNo.onMouseOver() || simulationYes.onMouseOver()) ||
      pantalla == Pantalles.CREATE && saveCreation.mouseOverButton() ||
-     pantalla == Pantalles.CREATE && mouseOverImages() != -1 && createImgs[mouseOverImages()] != null
+     pantalla == Pantalles.CREATE && mouseOverImages() != -1 && createImgs[mouseOverImages()] != null||
+     pantalla == Pantalles.FILTERS && saveFilters.mouseOverButton()
      ){
         cursorHand = true;
      }else{

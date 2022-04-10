@@ -54,6 +54,8 @@ String codeBeta = "hola amics. HELLO WORLD. hola amics. HELLO WORLD. hola amics.
 
 String codeTitle;
 
+ArrayList<ExperienceButton> filteredExp;
+boolean filtersOn = false;
 
 boolean cursorHand = false;
 ExperienceButton expSelected;

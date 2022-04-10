@@ -107,11 +107,11 @@ void mouseReleased(){
           (!mouseOverCodi() && pantalla == Pantalles.CREATE && addCodePanel)) { addCodePanel = false; }  
   else if(difficulties.mouseOverSelect() && difficulties.enabled){ if(!difficulties.collapsed){ difficulties.update(); } difficulties.toggle(); }
   else if(!difficulties.collapsed && !difficulties.mouseOverSelect()){ difficulties.collapsed=true;}
-  else if(pantalla == Pantalles.CREATE && !addCodePanel && !mouseOverFoto()) { createName.isPressed(); createDescription.isPressed();  createProcedure.isPressed(); }
+  else if(pantalla == Pantalles.CREATE && !addCodePanel && !mouseOverFoto()) { createMaterials.checkMouse(); createName.isPressed(); createDescription.isPressed();  createProcedure.isPressed(); }
   else if(pantalla == Pantalles.CREATE && addCodePanel) { createCode.isPressed(); }
   else if(pantalla == Pantalles.FOTOS && !mouseOverFoto2() && !fotoLeft.mouseOverButton() && !fotoRight.mouseOverButton()){ pantalla = Pantalles.EXPERIENCE; }
   else if(pantalla == Pantalles.FOTOS && fotoLeft.mouseOverButton() && expSelected.selected>0){ expSelected.selected--; }
-  else if(pantalla == Pantalles.FOTOS && fotoRight.mouseOverButton() && expSelected.selected<4){ expSelected.selected++; }
+  else if(pantalla == Pantalles.FOTOS && fotoRight.mouseOverButton() && expSelected.selected<expSelected.imgs.length-1){ expSelected.selected++; }
   else if(pantalla == Pantalles.EXPERIENCE && mouseOverImages() != -1){ expSelected.selected = mouseOverImages(); }
   else if(pantalla == Pantalles.FILTERS && difficultyE.onMouseOver()){ difficultyE.toggle(); }
   else if(pantalla == Pantalles.FILTERS && difficultyM.onMouseOver()){ difficultyM.toggle(); }
@@ -119,13 +119,37 @@ void mouseReleased(){
   else if(pantalla == Pantalles.FILTERS && simulationNo.onMouseOver()){ simulationNo.toggle(); }
   else if(pantalla == Pantalles.FILTERS && simulationYes.onMouseOver()){ simulationYes.toggle(); }
   else if(pantalla == Pantalles.CREATE && mouseOverFoto()){ selectInput("Selecciona una imatge ...", "fileSelected"); }
-  else if(pantalla == Pantalles.FILTERS){filtersMaterials.checkMouse();}
-  else if(pantalla == Pantalles.CREATE){createMaterials.checkMouse();}
   else if(pantalla == Pantalles.SIMULA01){ s1.checkButtons(); s1.checkSliders();}
   else if(pantalla == Pantalles.SIMULA02){ s2.checkSlider();}
   else if(pantalla == Pantalles.SIMULA03){ s3.checkSliders();}
   else if(pantalla == Pantalles.SIMULA04){ s4.checkSliders();}
   else if(pantalla == Pantalles.SIMULA05){ s5.checkSliders();}
+  else if(pantalla == Pantalles.FILTERS && saveFilters.mouseOverButton()){ 
+    println("PRESSED");
+    filteredExp = new ArrayList<>();
+    String comps = filtersMaterials.getSelectedValuesIn();
+    String difFilter;
+    boolean simulationFilter;
+    if(simulationYes.checked){simulationFilter = true;}else{simulationFilter = false;}
+    if(difficultyE.checked){ difFilter = "0";} else if (difficultyM.checked){ difFilter = "1";}else if(difficultyD.checked){ difFilter = "2";}else{difFilter = "0, 1, 2";}
+    String[][] filtered = getFiltraExperiencies(comps, difFilter, simulationFilter);     
+    for (int i=0; i<filtered.length; i++) {
+      int id = Integer.valueOf(filtered[i][0]);
+      String name = filtered[i][1];
+      String description = filtered[i][2];
+      String codi = filtered[i][3];
+      int simula = Integer.valueOf(filtered[i][4]);
+      String[] infoProc = getProcedimientos(id);
+      String[][] materials = getComponentes(id);
+      PImage[] imgs = createArrayFotos(getFotos(id));
+      int dif = Integer.valueOf(filtered[i][5]);
+      filteredExp.add(new ExperienceButton(imgs, dif, name, description, infoProc, materials, codi, id-1, simula));
+    }
+    printArray2D(filtered);
+    filtersOn = true;
+    pantalla = Pantalles.INICI;
+  }
+  else if(pantalla == Pantalles.FILTERS){filtersMaterials.checkMouse();}
 }
 
 void mouseDragged(){
