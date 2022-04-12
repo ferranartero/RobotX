@@ -49,22 +49,14 @@ void experiences(){
     about.display(); 
     //println("NUM EXPERIENCES: "+experiences.size());
     //visualitza experiences
-    
-    if(!filtersOn){
+   
       for(int i = 0; i<experiences.size(); i++){
         int fila = i/4; int columna = i%4;
         ExperienceButton e = experiences.get(i);
         e.selectedFoto = e.imgs[0];
         e.display((columna+1)*margeX+columna*experienceX, margeY+logoY2+50+createButtonY+50+filterButtonX+30+experienceY*fila+100*fila, experienceX, experienceY, y);    
       }
-    }else{
-      for(int i = 0; i<filteredExp.size(); i++){
-        int fila = i/4; int columna = i%4;
-        ExperienceButton e = filteredExp.get(i);
-        e.selectedFoto = e.imgs[0];
-        e.display((columna+1)*margeX+columna*experienceX, margeY+logoY2+50+createButtonY+50+filterButtonX+30+experienceY*fila+100*fila, experienceX, experienceY, y);
-      }
-    }
+
     
   popStyle();
 }

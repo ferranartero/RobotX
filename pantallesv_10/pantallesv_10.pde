@@ -127,6 +127,20 @@ void mouseReleased(){
       }
     }
     insertProcedimientoExperiencia(ide, createDescription.text1, 1);
+    experiences = new ArrayList<>();
+  String[][] info = getInfoExperiencies();
+  for (int i=0; i<info.length; i++) {
+    int id = Integer.valueOf(info[i][0]);
+    String name = info[i][1];
+    String description = info[i][2];
+    String codi = info[i][3];
+    int simula = Integer.valueOf(info[i][4]);
+    String[] infoProc = getProcedimientos(id);
+    String[][] materials = getComponentes(id);
+    PImage[] imgs = createArrayFotos(getFotos(id));
+    int diff = Integer.valueOf(info[i][5]);
+    experiences.add(new ExperienceButton(imgs, diff, name, description, infoProc, materials, codi, id-1, simula));
+  }
     pantalla = Pantalles.INICI;
   }  
   else if(pantalla == Pantalles.CREATE && !addCodePanel && !mouseOverFoto()) { createMaterials.checkMouse(); createName.isPressed(); createDescription.isPressed();  createProcedure.isPressed(); }
@@ -151,23 +165,26 @@ void mouseReleased(){
     filteredExp = new ArrayList<>();
     String comps = filtersMaterials.getSelectedValuesIn();
     String difFilter;
-    boolean simulationFilter;
-    if(simulationYes.checked){simulationFilter = true;}else{simulationFilter = false;}
+    String simulationFilter;
+    if(simulationYes.checked){simulationFilter = "S";}else if(simulationNo.checked){simulationFilter = "N";}else{simulationFilter = "*";}
     if(difficultyE.checked){ difFilter = "0";} else if (difficultyM.checked){ difFilter = "1";}else if(difficultyD.checked){ difFilter = "2";}else{difFilter = "0, 1, 2";}
-    String[][] filtered = getFiltraExperiencies(comps, difFilter, simulationFilter);     
-    for (int i=0; i<filtered.length; i++) {
-      int id = Integer.valueOf(filtered[i][0]);
-      String name = filtered[i][1];
-      String description = filtered[i][2];
-      String codi = filtered[i][3];
-      int simula = Integer.valueOf(filtered[i][4]);
+    
+    experiences.clear();
+    String[][] info = getFiltrarExperiencies(comps, difFilter, simulationFilter);  
+    printArray2D(info);
+    for (int i=0; i<info.length; i++) {
+      int id = Integer.valueOf(info[i][0]);
+      String name = info[i][1];
+      String description = info[i][2];
+      String codi = info[i][3];
+      int simula = Integer.valueOf(info[i][4]);
       String[] infoProc = getProcedimientos(id);
       String[][] materials = getComponentes(id);
       PImage[] imgs = createArrayFotos(getFotos(id));
-      int dif = Integer.valueOf(filtered[i][5]);
-      filteredExp.add(new ExperienceButton(imgs, dif, name, description, infoProc, materials, codi, id-1, simula));
+      int dif = Integer.valueOf(info[i][5]);
+      experiences.add(new ExperienceButton(imgs, dif, name, description, infoProc, materials, codi, id-1, simula));
     }
-    printArray2D(filtered);
+    
     filtersOn = true;
     pantalla = Pantalles.INICI;
   }

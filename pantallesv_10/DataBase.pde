@@ -283,3 +283,71 @@ void deleteExperiencia(int idExp){
   msql.query( "DELETE FROM foto WHERE experiencia ='"+idExp+"'");
   msql.query( "DELETE FROM experiencia WHERE id ='"+idExp+"'");
 }
+
+String whereSimulacion(String sim){
+  String where = "";
+  if(sim.equals("S")){
+    where = " AND e.simula IN ('1', '2', '3', '4', '5') ";
+  }
+  else if(sim.equals("N")){
+    where = " AND e.simula='0' ";
+  }
+  return where;
+}
+
+String whereDificultad(String dif){
+   String whereDificultad= "";
+   if(dif.equals("0") || dif.equals("1") || dif.equals("2")){
+     whereDificultad = "AND d.nombre='"+dif+"'";
+   }
+   return whereDificultad;
+}
+
+String whereComponentes(String comps){
+   String whereComponentes = "";
+   if(comps.length()>0){
+     whereComponentes = "AND tc.nombre IN ("+comps+")";
+   }
+   return whereComponentes;
+}
+
+String queryFiltrarCount(String comps, String dif, String sim){
+   return "SELECT COUNT(DISTINCT e.id) AS n "+
+          "FROM experiencia e, dificultad d, componentesexp ce, componente c, tipocomponente tc "+
+          "WHERE e.dificultad=d.id AND e.id=ce.experiencia AND ce.componente=c.id AND c.tipo=tc.id "+
+          whereDificultad(dif) + whereSimulacion(sim) + whereComponentes(comps);
+}
+
+String queryFiltrar(String comps, String dif, String sim){
+   return "SELECT DISTINCT e.id AS id, e.nombre AS nombre, e.descripcion AS descripcion, e.codi AS codi, e.simula AS simula, d.nombre AS dificultad "+
+              "FROM experiencia e, dificultad d, componentesexp ce, componente c, tipocomponente tc "+
+              "WHERE e.dificultad=d.id AND e.id=ce.experiencia AND ce.componente=c.id AND c.tipo=tc.id "+
+               whereDificultad(dif) + whereSimulacion(sim) + whereComponentes(comps) + " ORDER BY e.id ASC";
+}
+
+
+int getNumRowsFiltar(String comps, String dif, String sim){
+  String q = queryFiltrarCount(comps, dif, sim);
+  msql.query(q);
+  msql.next();
+  return msql.getInt("n");
+}
+
+String[][] getFiltrarExperiencies(String comps, String dif, String sim){ 
+  int numFiles = getNumRowsFiltar(comps, dif, sim);
+  String[][] info = new String[numFiles][6];
+  String q = queryFiltrar(comps, dif, sim);
+  println("QUERY: "+q);
+  msql.query(q);
+  int nr=0;
+  while(msql.next()){
+    info[nr][0] = String.valueOf(msql.getInt("id"));
+    info[nr][1] = msql.getString("nombre");
+    info[nr][2] = msql.getString("descripcion");
+    info[nr][3] = msql.getString("codi");
+    info[nr][4] = String.valueOf(msql.getInt("simula"));
+    info[nr][5] = msql.getString("dificultad");
+    nr++;
+  }
+  return info;
+}
