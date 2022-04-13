@@ -101,10 +101,12 @@ void displayAbout(){
 void about(){
   pushStyle();
     rectMode(LEFT);fill(20, 200);rect(0,0,width,height);
-    rectMode(CENTER);fill(243, 246, 247);
+    rectMode(CENTER); fill(243, 246, 247);
     rect(width/2, height/2, filtersX, filtersY, 25);
     textAlign(CENTER); textFont(titols[1]); textSize(30); fill(44, 55, 97);
     text("ABOUT", width/2, height/2-filtersY/2+55);
+    textAlign(LEFT); textFont(titols[0]); textSize(15); fill(44, 55, 97);
+    text("RobotiX Experience offer to its users a new way of learning robotics and electronic sistems. This is an intuitive and visual application where users can either discover already created circuits or save their own systems. \n \nBy pressing the FILTERS button you can search for the circuits you are interested in. Clicking an experience, a short previsualization of it could be seen; and, if the user decides to know more about the circuit, he can see pictures of it, the materials needed the arduino code if its necessary and the rocedure to follow. Also, by pressing the CREATE button on the home screen, the user can save their circuits.", width/2, height/2+40, filtersX-100, filtersY-100);
     back.display();
   popStyle();
 }
@@ -120,7 +122,23 @@ void delete(){
     rectMode(CENTER);fill(243, 246, 247);
     rect(width/2, height/2, 800, 400, 25);
     textAlign(CENTER); textFont(titols[1]); textSize(20); fill(44, 55, 97);
-    text("Are you sure you want to discard '"+expSelected.title+"'?",  width/2, height/2+60, 700, 300);
+    text("Are you sure you want to DELETE '"+expSelected.title+"'?",  width/2, height/2+60, 700, 300);
+    deleteYes.display(); deleteNo.display();
+  popStyle();
+}
+
+void displaySave(){
+  displayCreate();
+  saveC();
+}
+
+void saveC(){
+  pushStyle();
+    rectMode(LEFT);fill(20, 200);rect(0,0,width,height);
+    rectMode(CENTER);fill(243, 246, 247);
+    rect(width/2, height/2, 800, 400, 25);
+    textAlign(CENTER); textFont(titols[1]); textSize(20); fill(44, 55, 97);
+    text("Are you sure you want to SAVE '"+createName.text+ "'?",  width/2, height/2+60, 700, 300);
     deleteYes.display(); deleteNo.display();
   popStyle();
 }

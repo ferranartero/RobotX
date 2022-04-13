@@ -1,8 +1,8 @@
-enum Pantalles {ANIMATION, INICI, DELETE, FILTERS, ABOUT, PREV, CREATE, EXPERIENCE, FOTOS, CODI, SIMULA01, SIMULA02, SIMULA03, SIMULA04, SIMULA05};
+enum Pantalles {ANIMATION, INICI, DELETE, FILTERS, ABOUT, PREV, CREATE, SAVE, EXPERIENCE, FOTOS, CODI, SIMULA01, SIMULA02, SIMULA03, SIMULA04, SIMULA05};
 Pantalles pantalla;
 
 void setup(){
-  fullScreen(P3D);
+  fullScreen();
   strokeWeight(0);
   connectDB();
   inicialitza();   
@@ -22,6 +22,7 @@ void draw(){
     case ABOUT: displayAbout(); break;
     case PREV: displayPrev(); break;
     case CREATE: displayCreate(); break;
+    case SAVE: displaySave(); break;
     case EXPERIENCE: displayExperience(); break;
     case FOTOS: displayFotos(); break;
     case CODI: displayCode(); break;
@@ -86,6 +87,12 @@ void mouseReleased(){
     filters.setY(margeY+logoY2+50+createButtonY+50+filterButtonX/2); 
     about.setY(margeY+logoY2+50+createButtonY+50+filterButtonX/2);
     pantalla = Pantalles.EXPERIENCE; 
+    for(int i = 0; i<experiences.size(); i++){
+          int fila = i/4; 
+          int y0 = margeY+logoY2+50+createButtonY+50+filterButtonX+30+experienceY*fila+100*fila;
+          ExperienceButton e = experiences.get(i);
+          e.delete.setY(y0+30);
+        }
   }
   else if(goToSimulation.mouseOverButton() && pantalla == Pantalles.EXPERIENCE){ 
     switch(expSelected.simulacio){
@@ -112,7 +119,8 @@ void mouseReleased(){
           (!mouseOverCodi() && pantalla == Pantalles.CREATE && addCodePanel)) { addCodePanel = false; }  
   else if(difficulties.mouseOverSelect() && difficulties.enabled){ if(!difficulties.collapsed){ difficulties.update(); } difficulties.toggle(); }
   else if(!difficulties.collapsed && !difficulties.mouseOverSelect()){ difficulties.collapsed=true;}
-  else if(pantalla == Pantalles.CREATE && saveCreation.mouseOverButton()){
+  else if(pantalla == Pantalles.CREATE && saveCreation.mouseOverButton()){ pantalla = Pantalles.SAVE; }
+  else if (pantalla == Pantalles.SAVE && deleteYes.mouseOverButton()){
     int dif;
     if(difficulties.selectedValue == "MEDIUM"){ dif = 1;}else if(difficulties.selectedValue == "DIFFICULT"){ dif = 2; }else{ dif = 0;}
     insertExperiencia(createName.text, createDescription.text1, createCode.text1, "0", String.valueOf(dif));
@@ -134,7 +142,8 @@ void mouseReleased(){
     insertProcedimientoExperiencia(ide, createDescription.text1, 1);
     refreshExperiences();
     pantalla = Pantalles.INICI;
-  }  
+  }
+  else if(pantalla == Pantalles.SAVE && deleteNo.mouseOverButton()){ pantalla = Pantalles.CREATE; }
   else if(pantalla == Pantalles.CREATE && !addCodePanel && !mouseOverFoto()) { createMaterials.checkMouse(); createName.isPressed(); createDescription.isPressed();  createProcedure.isPressed(); }
   else if(pantalla == Pantalles.CREATE && addCodePanel) { createCode.isPressed(); }
   else if(pantalla == Pantalles.FOTOS && !mouseOverFoto2() && !fotoLeft.mouseOverButton() && !fotoRight.mouseOverButton()){ pantalla = Pantalles.EXPERIENCE; }
