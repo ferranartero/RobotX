@@ -24,7 +24,7 @@ class Slider {
       fill(c); strokeWeight(3);
       rect(x, y, w, h, 5);
       noStroke(); fill(0);
-      rect(x + map(v, minV, maxV, 0, w), y, 15, h);
+      rect(x + map(v, minV, maxV, 0, w), y, 15, h, 5);
       fill(255); textAlign(CENTER); textSize(24);
       text(v, x + map(v, minV, maxV, 0, w), y +h/2);
       fill(0); textAlign(LEFT);

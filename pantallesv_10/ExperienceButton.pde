@@ -1,7 +1,7 @@
 class ExperienceButton {
   
  // Propietats d'un botó:
- float x, y, y2;  // Posició
+ int x, y, y2;  // Posició
  String title;  // Text
  int dif;
  boolean enabled;  // Abilitat / desabilitat
@@ -15,6 +15,7 @@ class ExperienceButton {
  PImage[] imgs;
  PImage selectedFoto;
  int selected;
+ RoundButton delete;
  
  // Mètode Constructor
  ExperienceButton(PImage[] img, int dif, String title, String description, String[] procedure, String materials[][], String code, int ne, int simula){
@@ -39,6 +40,7 @@ class ExperienceButton {
    this.materials = materials;
    this.code = code;
    this.simulacio = simula;
+   delete = new RoundButton(close1, close2, this.x+28, this.y+30, 35);
  }
  
  // Setters
@@ -50,16 +52,16 @@ class ExperienceButton {
    this.y += y;
  }
  
- void setY(float y) {
+ void setY(int y) {
     this.y = y;
   }
   
-  void setX(float x) {
+  void setX(int x) {
     this.x = x;
   }
  
  // Dibuixa el botó
- void display(float x, float y, float experienceX, float experienceY, float y2){
+ void display(int x, int y, float experienceX, float experienceY, int y2){
    pushMatrix();
      setX(x);
      setY(y);
@@ -105,7 +107,14 @@ class ExperienceButton {
        fill(44, 55, 97); textAlign(CORNER); textSize(20);textFont(titols[0]);
        text(title, this.x+20, this.y+335);
      }   
+     
    popMatrix();
+   if(mouseOverButton() && pantalla == Pantalles.INICI){
+       delete.setEnabled(true);
+       delete.display();
+     }else{
+       delete.setEnabled(false); 
+     }
    
  }
  

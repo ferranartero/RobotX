@@ -109,6 +109,22 @@ void about(){
   popStyle();
 }
 
+void displayDelete(){
+  displayInici();
+  delete();
+}
+
+void delete(){
+  pushStyle();
+    rectMode(LEFT);fill(20, 200);rect(0,0,width,height);
+    rectMode(CENTER);fill(243, 246, 247);
+    rect(width/2, height/2, 800, 400, 25);
+    textAlign(CENTER); textFont(titols[1]); textSize(20); fill(44, 55, 97);
+    text("Are you sure you want to discard '"+expSelected.title+"'?",  width/2, height/2+60, 700, 300);
+    deleteYes.display(); deleteNo.display();
+  popStyle();
+}
+
 void displayPrev(){
   pushMatrix();
   //translate(0,0, 10);
@@ -460,7 +476,11 @@ void mouseCursor(){
      pantalla == Pantalles.FILTERS && (difficultyE.onMouseOver() || difficultyM.onMouseOver() || difficultyD.onMouseOver() || simulationNo.onMouseOver() || simulationYes.onMouseOver()) ||
      pantalla == Pantalles.CREATE && saveCreation.mouseOverButton() ||
      pantalla == Pantalles.CREATE && mouseOverImages() != -1 && createImgs[mouseOverImages()] != null||
-     pantalla == Pantalles.FILTERS && saveFilters.mouseOverButton()
+     pantalla == Pantalles.FILTERS && saveFilters.mouseOverButton() ||
+     pantalla == Pantalles.SIMULA01 && s1.mouseOverButton() ||
+     pantalla == Pantalles.SIMULA02 && s2.sM.mouseOnSlider()||
+     pantalla == Pantalles.DELETE && deleteYes.mouseOverButton() ||
+     pantalla == Pantalles.DELETE && deleteNo.mouseOverButton()
      ){
         cursorHand = true;
      }else{

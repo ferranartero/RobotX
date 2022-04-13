@@ -30,7 +30,7 @@ class Simulacio02 extends Simulacio {
 
   // Inicialitza la GUI de la simulació
   void initGui() {
-    sM = new Slider("Servo_Motor_1", 100, 600, 500, 50, 0, 90, 90);
+    sM = new Slider("Servo Motor 1", width/2-250, 820, 500, 50, 0, 90, 90);
   }
 
   // Actualitza el servomotor
@@ -44,12 +44,12 @@ class Simulacio02 extends Simulacio {
     logo();
     backSimulator.display();
     // Informació
-    fill(0); textSize(38); textAlign(LEFT);
-    text("Braç Articulat", 150, 100);
+    fill(49, 72, 140, transparence); textSize(50); textAlign(CENTER); rectMode(CORNER);
+    text("Foldable Stair", width/2, 220);
 
     // Dibuixa articulacions (encadenadament)
     pushMatrix();    
-    translate(150, 150); 
+    translate(width/2-200, 330); 
     drawLinkOne();  
     drawLinkThree();
     popMatrix();

@@ -14,10 +14,10 @@ class SliderV {
 
   void display() {
     pushStyle();
-      fill(c); strokeWeight(3);
-      rect(x-1, y-4, w, h+10, 5);
+      fill(c); strokeWeight(3);rectMode(CORNER);
+      rect(x, y-4, w, h+10, 5);
       noStroke(); fill(0);
-      rect(x, h-v+y-5, w-2, 13);
+      rect(x, h-v+y-5, w, 13, 5);
       fill(255); textAlign(CENTER); textSize(24);
       text(v, x+ w/2, h-v+y+6);
     popStyle();
@@ -25,7 +25,7 @@ class SliderV {
 
   boolean mouseOnSlider() {
     return ((mouseX>x) && (mouseX<x+w) && 
-            (mouseY<=y+h+150) && (mouseY>=y-150));
+            (mouseY<=y+h) && (mouseY>=y));
   }
 
   void updateSlider() {

@@ -7,17 +7,19 @@ class Button {
  color fillColorOver, fillColorDisabled;
  String textBoto;  // Text
  boolean enabled;  // Abilitat / desabilitat
+ int textSize;
  
  // Mètode Constructor
- Button(String text, float x, float y, float w, float h){
+ Button(String text, float x, float y, float w, float h, int s){
    this.textBoto = text;
    this.x = x;
    this.y = y;
    this.w = w;
    this.h = h;
    this.enabled = true;
-   fillColor = color(51, 168, 204);
+   fillColor = color(34, 184, 230);
    fillColorOver = color(49, 72, 140);
+   textSize = s;
  }
  
  // Setters
@@ -40,6 +42,10 @@ class Button {
   void setW(int i){
     this.w = i;
   }
+  
+  void setTextSize(int i){
+    this.textSize = i;
+  }
  
  // Dibuixa el botó
  void display(){
@@ -50,7 +56,7 @@ class Button {
      rect(this.x, this.y, this.w, this.h, 20);    // Rectangle del botó
      
      // Text (color, alineació i mida)
-     fill(44, 55, 97); textAlign(CENTER); textFont(titols[1]); textSize(20);
+     fill(44, 55, 97); textAlign(CENTER); textFont(titols[1]); textSize(textSize);
      text(textBoto, this.x, this.y+7);
    }
    else if(mouseOverButton()){
@@ -59,16 +65,16 @@ class Button {
      rect(this.x, this.y, this.w, this.h, 20);    // Rectangle del botó
      
      // Text (color, alineació i mida)
-     fill(fillColor); textAlign(CENTER); textFont(titols[1]); textSize(20);
+     fill(fillColor); textAlign(CENTER); textFont(titols[1]); textSize(textSize);
      text(textBoto, this.x, this.y+7);
    }
    else{
-     fill(34, 184, 230, 180);          // Color actiu però ratolí fora
+     fill(fillColor, 180);          // Color actiu però ratolí fora
      noStroke();     //Color i gruixa del contorn
      rect(this.x, this.y, this.w, this.h, 20);    // Rectangle del botó
      
      // Text (color, alineació i mida)
-     fill(44, 55, 97); textAlign(CENTER); textFont(titols[1]); textSize(20);
+     fill(44, 55, 97); textAlign(CENTER); textFont(titols[1]); textSize(textSize);
      text(textBoto, this.x, this.y+7);
    }
    

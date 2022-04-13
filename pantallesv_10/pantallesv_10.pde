@@ -1,8 +1,8 @@
-enum Pantalles {ANIMATION, INICI, FILTERS, ABOUT, PREV, CREATE, EXPERIENCE, FOTOS, CODI, SIMULA01, SIMULA02, SIMULA03, SIMULA04, SIMULA05};
+enum Pantalles {ANIMATION, INICI, DELETE, FILTERS, ABOUT, PREV, CREATE, EXPERIENCE, FOTOS, CODI, SIMULA01, SIMULA02, SIMULA03, SIMULA04, SIMULA05};
 Pantalles pantalla;
 
 void setup(){
-  fullScreen();
+  fullScreen(P3D);
   strokeWeight(0);
   connectDB();
   inicialitza();   
@@ -17,6 +17,7 @@ void draw(){
   switch(pantalla){
     case ANIMATION: if(millis() < 7000){displayAnimation();}else{ pantalla = Pantalles.INICI; } break;
     case INICI: displayInici(); break;
+    case DELETE: displayDelete(); break;
     case FILTERS: displayFilters(); break;
     case ABOUT: displayAbout(); break;
     case PREV: displayPrev(); break;
@@ -64,10 +65,13 @@ void mouseReleased(){
   else if(pantalla == Pantalles.INICI){
     for(int i = 0; i<experiences.size(); i++){
       ExperienceButton e = experiences.get(i);
-      if(e.mouseOverButton()){
+      if(e.mouseOverButton() && !e.delete.mouseOverButton()){
         expSelected = e;
         pantalla = Pantalles.PREV;
         break;
+      }else if(e.delete.mouseOverButton() && e.delete.enabled){
+        expSelected = e;
+        pantalla = Pantalles.DELETE;
       }
     }
   }
@@ -184,11 +188,29 @@ void mouseReleased(){
       int dif = Integer.valueOf(info[i][5]);
       experiences.add(new ExperienceButton(imgs, dif, name, description, infoProc, materials, codi, id-1, simula));
     }
-    
-    filtersOn = true;
     pantalla = Pantalles.INICI;
   }
   else if(pantalla == Pantalles.FILTERS){filtersMaterials.checkMouse();}
+  else if(pantalla == Pantalles.DELETE && deleteYes.mouseOverButton()){ 
+    deleteExperiencia(getIdExperience(expSelected.title));
+    experiences = new ArrayList<>();
+    String[][] info = getInfoExperiencies();
+    for (int i=0; i<info.length; i++) {
+      int id = Integer.valueOf(info[i][0]);
+      String name = info[i][1];
+      String description = info[i][2];
+      String codi = info[i][3];
+      int simula = Integer.valueOf(info[i][4]);
+      String[] infoProc = getProcedimientos(id);
+      String[][] materials = getComponentes(id);
+      PImage[] imgs = createArrayFotos(getFotos(id));
+      int diff = Integer.valueOf(info[i][5]);
+      experiences.add(new ExperienceButton(imgs, diff, name, description, infoProc, materials, codi, id-1, simula));
+    }
+    pantalla = Pantalles.INICI;
+    }
+  else if(pantalla == Pantalles.DELETE && deleteNo.mouseOverButton()){ pantalla = Pantalles.INICI; }
+  else if(pantalla == Pantalles.DELETE && !mouseOverDelete()){ pantalla = Pantalles.INICI;}
   
 }
 
@@ -207,6 +229,10 @@ void keyPressed(){
         create.changeYby(10);
         filters.changeYby(10);
         about.changeYby(10);
+        for(int i = 0; i<experiences.size(); i++){
+          ExperienceButton e = experiences.get(i);
+          e.delete.changeYby(10);
+        }
       }
       y += 10;
       if(y>0){
@@ -219,6 +245,10 @@ void keyPressed(){
         create.changeYby(-10);
         filters.changeYby(-10);
         about.changeYby(-10);
+        for(int i = 0; i<experiences.size(); i++){
+          ExperienceButton e = experiences.get(i);
+          e.delete.changeYby(-10);
+        }
       }
       y -= 10;
       if(y<-yMax){
@@ -280,4 +310,11 @@ boolean mouseOverFoto2(){
           mouseX <= width/2+400 &&
           mouseY >= height/2-400 &&
           mouseY <= height/2+400);
+}
+
+boolean mouseOverDelete(){
+  return (mouseX >= width/2-400 &&
+          mouseX <= width/2+400 &&
+          mouseY >= height/2-200 &&
+          mouseY <= height/2+200);
 }

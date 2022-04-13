@@ -74,6 +74,13 @@ int getIdFromComponente(String nom){
   return id;
 }
 
+int getIdExperience(String nom){
+  msql.query( "SELECT id FROM experiencia WHERE nombre='"+nom+"'" );
+  msql.next();
+  int id = msql.getInt("id");
+  return id;
+}
+
 // Retorna nom
 String getNombreFromTipoComponente(int id){
   msql.query( "SELECT nombre FROM tipocomponente WHERE id='"+id+"'" );

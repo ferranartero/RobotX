@@ -8,7 +8,10 @@ class Simulacio01 extends Simulacio {
   
   // Sliders
   SliderV sV1, sV2, sV3;
-
+  
+  int x = 350;
+  int y = 350;
+  
   // Constructor
   Simulacio01(PApplet p) {
     super(p); // Constructor pare
@@ -19,54 +22,55 @@ class Simulacio01 extends Simulacio {
   void initGui() {
 
     // LED Buttons
-    bRedOn = new Button("Red_ON", 20, 75, 120, 70);
+    bRedOn = new Button("Red ON", x, y, 120, 70, 15);
     bRedOn.fillColor=color(255, 0, 0);
     
-    bRedOff = new Button("Red_OFF", 170, 75, 120, 70);
+    bRedOff = new Button("Red OFF", x+150, y, 120, 70, 15);
     bRedOff.fillColor=color(255, 0, 0);
     
-    bBlueOn = new Button("Blue_ON", 20, 175, 120, 70);
+    bBlueOn = new Button("Blue ON", x, y+100, 120, 70, 15);
     bBlueOn.fillColor=color(0, 0, 255);
     
-    bBlueOff = new Button("Blue_OFF", 170, 175, 120, 70);
+    bBlueOff = new Button("Blue OFF", x+150, y+100, 120, 70, 15);
     bBlueOff.fillColor=color(0, 0, 255);
     
-    bGreenOn = new Button("Green_ON", 20, 275, 120, 70);
+    bGreenOn = new Button("Green ON", x, y+200, 120, 70, 15);
     bGreenOn.fillColor=color(0, 255, 0);
     
-    bGreenOff = new Button("Green_OFF", 170, 275, 120, 70);
+    bGreenOff = new Button("Green OFF", x+150, y+200, 120, 70, 15);
     bGreenOff.fillColor=color(0, 255, 0);
     
-    bYellowOn = new Button("Yellow_ON", 20, 375, 120, 70);
+    bYellowOn = new Button("Yellow ON", x, y+300, 120, 70, 15);
     bYellowOn.fillColor=color(255, 255, 0);
     
-    bYellowOff = new Button("Yellow_OFF", 170, 375, 120, 70);
+    bYellowOff = new Button("Yellow OFF", x+150, y+300, 120, 70, 15);
     bYellowOff.fillColor=color(255, 255, 0);
     
-    bPinkOn = new Button("Pink_ON", 20, 475, 120, 70);
+    bPinkOn = new Button("Pink ON", x, y+400, 120, 70, 15);
     bPinkOn.fillColor=color(255, 0, 255);
     
-    bPinkOff = new Button("Pink_OFF", 170, 475, 120, 70);
+    bPinkOff = new Button("Pink OFF", x+150, y+400, 120, 70, 15);
     bPinkOff.fillColor=color(255, 0, 255);
     
-    bAllOn = new Button("All_ON", 20, 575, 120, 70);
-    bAllOn.fillColor=color(255);
+    bAllOn = new Button("All ON", x, y+500, 120, 70, 15);
+    bAllOn.fillColor=color(34, 184, 230);
     
-    bAllOff = new Button("All_OFF", 170, 575, 120, 70);
-    bAllOff.fillColor=color(255);  
+    bAllOff = new Button("All OFF", x+150, y+500, 120, 70, 15);
+    bAllOff.fillColor=color(34, 184, 230);  
 
     //RGB Sliders (Red: 1, Green:2, Blue: 3)
-    sV1 = new SliderV(325, 385, 90, 255, #FF0000);
-    sV2 = new SliderV(425, 385, 90, 255, #03FF00);
-    sV3 = new SliderV(525, 385, 90, 255, #009BFF);
+    sV1 = new SliderV(width/2+375, 470, 90, 255, #FF0000);
+    sV2 = new SliderV(width/2+475, 470, 90, 255, #03FF00);
+    sV3 = new SliderV(width/2+575, 470, 90, 255, #009BFF);
   }
 
   void display() {
     logo();
     backSimulator.display();
     // Dibuixa el text
-    fill(0); textSize(44); textAlign(LEFT);
-    text("LED RGB Controller", 20, 50);
+    fill(49, 72, 140, transparence); textSize(50); textAlign(CENTER); rectMode(CORNER);
+    text("RGB LED Controller", width/2, 220);
+    
     
     // Dibuixa els botons
     bRedOn.display(); bRedOff.display();
@@ -80,8 +84,8 @@ class Simulacio01 extends Simulacio {
     sV1.display(); sV2.display(); sV3.display();
 
     // Dibuixa el quadre de color RGB
-    fill(sV1.v, sV2.v, sV3.v); strokeWeight(3);
-    rect(325, 75, 290, 290, 5);
+    fill(sV1.v, sV2.v, sV3.v); strokeWeight(3);rectMode(CENTER);
+    rect(width/2, 600, 500, 500, 5);
   }
   
   // Comprova els cliks sobre els botons
@@ -163,6 +167,12 @@ class Simulacio01 extends Simulacio {
       sV3.updateSlider();
       updateSerial();
     }
+  }
+  
+  boolean mouseOverButton(){
+    return (sV1.mouseOnSlider() || sV2.mouseOnSlider() || sV3.mouseOnSlider()||
+           bRedOn.mouseOverButton() || bRedOff.mouseOverButton() || bBlueOn.mouseOverButton() || bBlueOff.mouseOverButton()||bYellowOn.mouseOverButton() || bGreenOn.mouseOverButton() ||
+           bYellowOff.mouseOverButton() || bPinkOn.mouseOverButton() || bPinkOff.mouseOverButton() || bAllOn.mouseOverButton() || bAllOff.mouseOverButton() || bGreenOff.mouseOverButton());
   }
   
 }

@@ -1,5 +1,5 @@
 RoundButton filters, about, home, back, backPrev, backSimulator, backCode, backFotos, logo2, fotoLeft, fotoRight;
-Button create, goToExperience, goToSimulation, viewArduinoCode, addArduinoCode, saveCreation, saveFilters;
+Button create, goToExperience, goToSimulation, viewArduinoCode, addArduinoCode, saveCreation, saveFilters, deleteYes, deleteNo;
 ExperienceButton experience1, experience3, experience4, experience2, experience5, experience6, experience7, experience8;
 Select difficulties;
 TextArea createDescription, createProcedure, createCode;
@@ -15,7 +15,7 @@ void inicialitzaBotons() {
   logo2 = new RoundButton(logo, logo, width/2, margeY+logoY2/2+10, logoX2);
   back = new RoundButton(back1, back2, width/2-filtersX/2+40, height/2-filtersY/2+50, backButtonX);
   backPrev = new RoundButton(back1, back2, width/2-prevX/2+40, height/2-prevY/2+50, backButtonX);
-  backSimulator = new RoundButton(back1, back2, margeX+backButtonX/2, margeY+logoY2+60, backButtonX);
+  backSimulator = new RoundButton(back1, back2, margeX+backButtonX/2, margeY+logoY2+80, backButtonX);
   backCode = new RoundButton(back1, back2, width/2-prevX/2+40, height/2-codePanelY/2+50, backButtonX);
   backFotos = new RoundButton(close1, close2, 40, 40, 60);
   home = new RoundButton(home1, home2, margeX + filterButtonX/2, margeY+logoY2+60, filterButtonX);
@@ -23,13 +23,15 @@ void inicialitzaBotons() {
   fotoRight = new RoundButton(right1, right2, width-(width-prevX)/4, height/2, 70);
 
   //BUTTONS
-  create = new Button("C R E A T E", width/2, margeY+logoY2+50+createButtonY/2, createButtonX, createButtonY);
-  goToExperience = new Button("GO TO EXPERIENCE", width/2-prevX/2+prevX/3+450, height/2 + 140, 700, createButtonY);
-  goToSimulation = new Button("GO TO SIMULATION", margeX+fotoPrevX + 50 + procedureX/2, margeY+logoY2+325+procedureY+bSimulationY/2, procedureX, bSimulationY);
-  viewArduinoCode = new Button("VIEW ARDUINO CODE", width-margeX-materialsX/2, margeY + logoY2+325+procedureY+bSimulationY/2, materialsX, bSimulationY);
-  addArduinoCode = new Button("ADD ARDUINO CODE", margeX+fotoPrevX + 50 + procedureX/2, margeY + logoY2+325+procedureY+bSimulationY/2+30, procedureX, bSimulationY);
-  saveCreation = new Button("SAVE", width-margeX-materialsX/2, margeY + logoY2+325+procedureY+bSimulationY/2+30, materialsX, bSimulationY);
-  saveFilters = new Button("SAVE FILTERS", width/2, height/2-filtersY/2+560, 350, 60);
+  create = new Button("C R E A T E", width/2, margeY+logoY2+50+createButtonY/2, createButtonX, createButtonY, 20);
+  goToExperience = new Button("GO TO EXPERIENCE", width/2-prevX/2+prevX/3+450, height/2 + 140, 700, createButtonY, 20);
+  goToSimulation = new Button("GO TO SIMULATION", margeX+fotoPrevX + 50 + procedureX/2, margeY+logoY2+325+procedureY+bSimulationY/2, procedureX, bSimulationY, 20);
+  viewArduinoCode = new Button("VIEW ARDUINO CODE", width-margeX-materialsX/2, margeY + logoY2+325+procedureY+bSimulationY/2, materialsX, bSimulationY, 20);
+  addArduinoCode = new Button("ADD ARDUINO CODE", margeX+fotoPrevX + 50 + procedureX/2, margeY + logoY2+325+procedureY+bSimulationY/2+30, procedureX, bSimulationY, 20);
+  saveCreation = new Button("SAVE", width-margeX-materialsX/2, margeY + logoY2+325+procedureY+bSimulationY/2+30, materialsX, bSimulationY, 20);
+  deleteYes = new Button("YES", width/2-120, height/2+60, 175, 75, 20);
+  deleteNo = new Button("NO", width/2+120, height/2+60, 175, 75, 20);
+  saveFilters = new Button("SAVE FILTERS", width/2, height/2-filtersY/2+560, 350, 60, 20);
 
   //SELECT
   difficulties = new Select(diff, margeX+fotoPrevX + 52, margeY+logoY2+92, 150, 21);
